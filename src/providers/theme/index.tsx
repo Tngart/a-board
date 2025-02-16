@@ -42,6 +42,20 @@ const theme = createTheme({
       },
     },
 
+    MuiCssBaseline: {
+      defaultProps: {
+        enableColorScheme: true,
+      },
+      styleOverrides: (theme) => ({
+        "input:-webkit-autofill": {
+          WebkitBoxShadow: `0 0 0 30px ${theme.vars.palette.background.default} inset !important`,
+        },
+        "input::-ms-clear, input::-ms-reveal": {
+          display: "none",
+        },
+      }),
+    },
+
     MuiButton: {
       styleOverrides: {
         root: {
