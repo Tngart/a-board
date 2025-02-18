@@ -9,44 +9,116 @@ import { Inter } from "next/font/google";
 const inter = Inter();
 
 const theme = createTheme({
-  cssVariables: {
-    colorSchemeSelector: "class",
-  },
-  colorSchemes: {
-    light: {
-      palette: {
-        primary: { main: "rgba(43, 95, 68, 1)" },
-        success: { main: "rgba(73, 165, 105, 1)" },
-        AppBar: { defaultBg: "rgba(36, 56, 49, 1)" },
-      },
+  cssVariables: true,
+  palette: {
+    primary: {
+      main: "rgba(36, 56, 49, 1)",
+      contrastText: "rgba(255, 255, 255, 1)",
     },
-    dark: {
-      palette: {
-        primary: { main: "rgba(43, 95, 68, 1)" },
-        success: { main: "rgba(73, 165, 105, 1)" },
-        AppBar: { defaultBg: "rgba(36, 56, 49, 1)" },
-      },
+    secondary: {
+      main: "rgba(43, 95, 68, 1)",
+      contrastText: "rgba(255, 255, 255, 1)",
     },
+    text: {
+      primary: "rgba(0, 0, 0, 1)",
+      secondary: "rgba(255, 255, 255, 1)",
+    },
+    success: { main: "rgba(73, 165, 105, 1)" },
   },
   components: {
     MuiAppBar: {
       styleOverrides: {
         root: ({ theme }) => ({
-          color: "rgba(255, 255, 255, 1)",
-          background: theme.vars.palette.AppBar.defaultBg,
+          position: "fixed",
+          color: theme.palette.primary.contrastText,
+          background: theme.palette.primary.main,
           boxShadow: "none",
           backdropFilter: "blur(20px)",
           borderRadius: "0",
-          height: "60px",
         }),
       },
     },
-
-    MuiCssBaseline: {
-      defaultProps: {
-        enableColorScheme: true,
+    MuiDrawer: {
+      styleOverrides: {
+        paper: ({ theme }) => ({
+          zIndex: theme.zIndex.appBar + 1,
+          "@media (min-width: 600px)": {
+            zIndex: theme.zIndex.appBar - 1,
+          },
+          width: 275,
+        }),
+        paperAnchorRight: ({ theme }) => ({
+          borderTopLeftRadius: "12px",
+          borderBottomLeftRadius: "12px",
+          background: theme.palette.primary.main,
+          color: theme.palette.primary.contrastText,
+          height: "100%",
+        }),
+        paperAnchorLeft: ({ theme }) => ({
+          border: "none",
+          color: theme.palette.text.primary,
+        }),
       },
+    },
+    MuiList: {
+      styleOverrides: {
+        root: {
+          paddingTop: 10,
+          paddingBottom: 0,
+          paddingRight: 0,
+          paddingLeft: 0,
+        },
+      },
+    },
+    MuiListItem: {
+      styleOverrides: {
+        root: {
+          padding: 0,
+        },
+      },
+    },
+    MuiListItemIcon: {
+      styleOverrides: {
+        root: ({ theme }) => ({
+          justifyContent: "center",
+          fontSize: "18px",
+          color: theme.palette.text.secondary,
+          "@media (min-width: 600px)": {
+            color: theme.palette.text.primary,
+          },
+        }),
+      },
+    },
+    MuiButton: {
+      styleOverrides: {
+        root: {
+          background: "rgba(73, 165, 105, 1)",
+          borderRadius: "8px",
+          lineHeight: "1.875rem",
+          minWidth: "105px",
+          textTransform: "none",
+        },
+      },
+    },
+    MuiInputBase: {
+      styleOverrides: { root: { borderRadius: "8px" } },
+    },
+    MuiInput: {
+      styleOverrides: {
+        root: { borderRadius: "8px" },
+      },
+    },
+    MuiSelect: { styleOverrides: { root: { borderRadius: "8px" } } },
+    MuiCssBaseline: {
       styleOverrides: (theme) => ({
+        ":root": {
+          "--primary-main": theme.palette.primary.main,
+          "--primary-contrastText": theme.palette.primary.contrastText,
+          "--secondary-main": theme.palette.secondary.main,
+          "--secondary-contrastText": theme.palette.secondary.contrastText,
+          "--text-primary": theme.palette.text.primary,
+          "--text-secondary": theme.palette.text.secondary,
+        },
         "input:-webkit-autofill": {
           WebkitBoxShadow: `0 0 0 30px ${theme.vars.palette.background.default} inset !important`,
         },
@@ -55,25 +127,6 @@ const theme = createTheme({
         },
       }),
     },
-
-    MuiButton: {
-      styleOverrides: {
-        root: {
-          borderRadius: "8px",
-          lineHeight: "1.875rem",
-          textTransform: "none",
-        },
-      },
-    },
-    MuiInputBase: {
-      styleOverrides: { root: { borderRadius: "8px !important" } },
-    },
-    MuiInput: {
-      styleOverrides: {
-        root: { borderRadius: "8px !important" },
-      },
-    },
-    MuiSelect: { styleOverrides: { root: { borderRadius: "8px" } } },
   },
   typography: {
     fontFamily: inter.style.fontFamily,

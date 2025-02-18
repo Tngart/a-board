@@ -1,3 +1,4 @@
+import "./index.css";
 import Header from "@/components/header";
 import Input from "@/components/input";
 import { Button, Stack, Typography } from "@mui/material";
@@ -31,23 +32,10 @@ const LoginForm: FC<IProps> = ({ loading, onSubmit }) => {
     <form onSubmit={handleOnSubmit}>
       <Grid
         container
-        sx={{
-          height: "100vh",
-          justifyContent: "center",
-          alignItems: "stretch",
-          background: "#243831",
-        }}
+        className="form-container"
         direction={{ xs: "column-reverse", md: "row" }}
       >
-        <Grid
-          size={{ xs: 12, md: 7 }}
-          sx={{
-            alignContent: "center",
-            padding: { xs: "16px", md: "200px" },
-            height: { xs: "55%", md: "auto" },
-            gap: "32px",
-          }}
-        >
+        <Grid className="form-grid" size={{ xs: 12, md: 7 }}>
           <Stack spacing={2}>
             <div className="mb-6">
               <Header heading={"Sign in"} />
@@ -59,7 +47,6 @@ const LoginForm: FC<IProps> = ({ loading, onSubmit }) => {
               sx={{ background: "white", borderRadius: "8px" }}
             />
             <Button
-              className="h-10 w-full"
               color="success"
               disableElevation
               disabled={!isValid}
@@ -72,43 +59,15 @@ const LoginForm: FC<IProps> = ({ loading, onSubmit }) => {
           </Stack>
         </Grid>
 
-        <Grid
-          size={{ xs: 12, md: 5 }}
-          sx={{
-            display: "flex",
-            flexDirection: "column",
-            justifyContent: "center",
-            alignItems: "center",
-            background: "#285F44",
-            borderTopLeftRadius: { xs: "0px", md: "36px" },
-            borderBottomLeftRadius: { xs: "36px", md: "36px" },
-            borderBottomRightRadius: { xs: "36px", md: "0px" },
-            height: { xs: "45%", md: "auto" },
-          }}
-        >
+        <Grid className="side-grid" size={{ xs: 12, md: 5 }}>
           <Image
             src="/icon.svg"
             alt="logo"
             width={200}
             height={230}
-            style={{
-              width: "auto",
-              height: "30%",
-            }}
+            className="logo-image"
           />
-
-          <Typography
-            style={{
-              fontFamily: "Castoro",
-              fontStyle: "italic",
-              fontWeight: 400,
-              fontSize: "28px",
-              color: "white",
-              marginTop: "16px",
-            }}
-          >
-            a Board
-          </Typography>
+          <Typography className="sign-in-typography-brand ">a Board</Typography>
         </Grid>
       </Grid>
     </form>
