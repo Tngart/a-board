@@ -47,12 +47,10 @@ const LoginForm: FC<IProps> = ({ loading, onSubmit }) => {
               sx={{ background: "white", borderRadius: "8px" }}
             />
             <Button
-              color="success"
-              disableElevation
+              variant="contained"
               disabled={!isValid}
               loading={loading}
               type="submit"
-              variant="contained"
             >
               Sign in
             </Button>

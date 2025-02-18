@@ -11,6 +11,10 @@ const inter = Inter();
 const theme = createTheme({
   cssVariables: true,
   palette: {
+    background: {
+      default: "rgba(187, 194, 192, 1)",
+      paper: "rgba(255, 255, 255, 1)",
+    },
     primary: {
       main: "rgba(36, 56, 49, 1)",
       contrastText: "rgba(255, 255, 255, 1)",
@@ -23,7 +27,9 @@ const theme = createTheme({
       primary: "rgba(0, 0, 0, 1)",
       secondary: "rgba(255, 255, 255, 1)",
     },
-    success: { main: "rgba(73, 165, 105, 1)" },
+    success: {
+      main: "rgba(73, 165, 105, 1)",
+    },
   },
   components: {
     MuiAppBar: {
@@ -56,6 +62,7 @@ const theme = createTheme({
         }),
         paperAnchorLeft: ({ theme }) => ({
           border: "none",
+          background: theme.palette.background.default,
           color: theme.palette.text.primary,
         }),
       },
@@ -90,25 +97,91 @@ const theme = createTheme({
       },
     },
     MuiButton: {
+      defaultProps: {
+        disableElevation: true,
+      },
       styleOverrides: {
-        root: {
+        text: {
+          color: "rgba(0,0,0, 1)",
+        },
+        contained: {
           background: "rgba(73, 165, 105, 1)",
+          color: "rgba(255, 255, 255, 1)",
+        },
+        outlined: {
+          background: "rgba(255, 255, 255, 1)",
+          borderColor: "rgba(73, 165, 105, 1)",
+          color: "rgba(73, 165, 105, 1)",
+        },
+        root: {
           borderRadius: "8px",
           lineHeight: "1.875rem",
           minWidth: "105px",
+          height: "40px",
           textTransform: "none",
         },
       },
     },
     MuiInputBase: {
-      styleOverrides: { root: { borderRadius: "8px" } },
+      styleOverrides: {
+        root: {
+          borderColor: "rgba(216, 233, 228, 1)",
+          borderRadius: "8px",
+        },
+      },
     },
     MuiInput: {
       styleOverrides: {
-        root: { borderRadius: "8px" },
+        root: {
+          borderColor: "rgba(216, 233, 228, 1)",
+          borderRadius: "8px",
+        },
       },
     },
-    MuiSelect: { styleOverrides: { root: { borderRadius: "8px" } } },
+    MuiOutlinedInput: {
+      styleOverrides: {
+        root: {
+          borderRadius: "8px",
+          height: "40px",
+          "& .MuiOutlinedInput-notchedOutline": {
+            borderColor: "rgba(216, 233, 228, 1)",
+          },
+          "&:hover .MuiOutlinedInput-notchedOutline": {
+            borderColor: "rgba(216, 233, 228, 1)",
+          },
+          "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
+            borderColor: "rgba(216, 233, 228, 1)",
+          },
+        },
+      },
+    },
+    MuiMenuItem: {
+      styleOverrides: {
+        root: {
+          "&.Mui-selected": {
+            background: "rgba(216, 233, 228, 1)",
+          },
+          "&.Mui-selected:hover": {
+            background: "rgba(216, 233, 228, 1)",
+          },
+        },
+      },
+    },
+    MuiFilledInput: {
+      styleOverrides: {
+        root: {
+          borderColor: "rgba(216, 233, 228, 1)",
+          borderRadius: "8px",
+        },
+      },
+    },
+    MuiSelect: {
+      styleOverrides: {
+        select: {
+          border: "none",
+        },
+      },
+    },
     MuiCssBaseline: {
       styleOverrides: (theme) => ({
         ":root": {

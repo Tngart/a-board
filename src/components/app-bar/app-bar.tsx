@@ -36,7 +36,6 @@ const AppBarComponent: FC<AppBarProps> = ({
         </Link>
         <div>
           <Button
-            color="success"
             variant="contained"
             onClick={() => router.push("/sign-in")}
             sx={{ display: { xs: "none", sm: "block" } }}

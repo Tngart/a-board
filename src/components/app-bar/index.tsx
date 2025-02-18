@@ -1,5 +1,5 @@
 "use client";
-import { Box, CssBaseline } from "@mui/material";
+import { CssBaseline } from "@mui/material";
 import { useState } from "react";
 
 import AppBarComponent from "./app-bar";
@@ -10,7 +10,7 @@ const AppBar = () => {
   const [isClosing, setIsClosing] = useState(false);
 
   return (
-    <Box className="flex">
+    <div className="flex">
       <CssBaseline />
       <AppBarComponent
         isClosing={isClosing}
@@ -22,7 +22,7 @@ const AppBar = () => {
         setMobileOpen={setMobileOpen}
         setIsClosing={setIsClosing}
       />
-    </Box>
+    </div>
   );
 };
 
