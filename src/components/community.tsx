@@ -1,9 +1,8 @@
-"use client";
 import * as React from "react";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import { Check, KeyboardArrowDown } from "@mui/icons-material";
-import { Button, ButtonProps, Typography } from "@mui/material";
+import { Backdrop, Button, ButtonProps, Typography } from "@mui/material";
 import { useState } from "react";
 
 const options = [
@@ -42,25 +41,37 @@ const Community: React.FC<CommunityProps> = ({ variantButton, textButton }) => {
   };
 
   return (
-    <div>
+    <div style={{ position: "relative" }}>
       <Button
+        disableRipple
         variant={variantButton}
         onClick={handleClick}
         endIcon={<KeyboardArrowDown />}
       >
         {textButton}
       </Button>
+      <Backdrop open={open} onClick={handleClose} />
       <Menu
-        id="long-menu"
+        id="community-menu"
         anchorEl={anchorEl}
         open={open}
         onClose={handleClose}
         slotProps={{
           paper: {
-            style: {
-              width: "20ch",
+            sx: {
+              width: { xs: "200px", sm: "320px" },
+              position: "relative",
+              zIndex: (theme) => theme.zIndex.appBar + 2,
             },
           },
+        }}
+        anchorOrigin={{
+          vertical: "bottom",
+          horizontal: "right",
+        }}
+        transformOrigin={{
+          vertical: "top",
+          horizontal: "right",
         }}
       >
         {options.map((option) => (

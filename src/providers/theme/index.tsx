@@ -41,6 +41,16 @@ const theme = createTheme({
           boxShadow: "none",
           backdropFilter: "blur(20px)",
           borderRadius: "0",
+          "&:focus": {
+            outline: "none",
+          },
+        }),
+      },
+    },
+    MuiBackdrop: {
+      styleOverrides: {
+        root: ({ theme }) => ({
+          zIndex: theme.zIndex.appBar + 2,
         }),
       },
     },
@@ -103,6 +113,9 @@ const theme = createTheme({
       styleOverrides: {
         text: {
           color: "rgba(0,0,0, 1)",
+          ":hover": {
+            background: "transparent",
+          },
         },
         contained: {
           background: "rgba(73, 165, 105, 1)",
@@ -203,6 +216,9 @@ const theme = createTheme({
   },
   typography: {
     fontFamily: inter.style.fontFamily,
+    h6: {
+      fontWeight: 600,
+    },
   },
 });
 

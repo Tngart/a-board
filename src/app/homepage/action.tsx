@@ -43,7 +43,7 @@ const Action = () => {
         </FormControl>
       )}
       {!(visibleSearch && isMobile) && (
-        <div className="flex">
+        <div className="flex gap-[10px]">
           <Community variantButton="text" textButton="Community" />
           <Button variant="contained" endIcon={<Add />}>
             Create

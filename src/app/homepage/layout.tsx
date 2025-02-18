@@ -9,7 +9,7 @@ export default function RootLayout({ children }: PropsWithChildren) {
     <html lang="en">
       <body>
         <AppBar />
-        <Box className="flex justify-center items-center min-h-dvh">
+        <Box className=" pt-20 flex justify-center items-center min-h-dvh">
           {children}
         </Box>
       </body>
