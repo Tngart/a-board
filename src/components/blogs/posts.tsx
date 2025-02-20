@@ -9,7 +9,7 @@ interface IProps {
   topicFiltered: string;
   isEditable?: boolean;
 }
-const PostList: FC<IProps> = ({ posts, topicFiltered }) => {
+const PostList: FC<IProps> = ({ isEditable, posts, topicFiltered }) => {
   return (
     <div className="p-[16px]">
       <List
@@ -17,7 +17,11 @@ const PostList: FC<IProps> = ({ posts, topicFiltered }) => {
       >
         {posts.map((post, index) => (
           <Fragment key={index}>
-            <PostItem post={post} topicFiltered={topicFiltered} isEditable />
+            <PostItem
+              post={post}
+              topicFiltered={topicFiltered}
+              isEditable={isEditable}
+            />
             {index < posts.length - 1 && <Divider component="li" />}
           </Fragment>
         ))}

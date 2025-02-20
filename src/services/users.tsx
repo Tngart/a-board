@@ -1,6 +1,5 @@
 "use client";
 
-import { LocalStorage } from "@/providers/local-storage";
 import { endpoint, headers } from "@/providers/service";
 import axios from "axios";
 

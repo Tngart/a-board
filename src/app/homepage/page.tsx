@@ -125,7 +125,7 @@ const HomePage = () => {
     },
   ];
 
-  return <ActionAndPostList isEditable postList={mockPosts} />;
+  return <ActionAndPostList postList={mockPosts} />;
 };
 
 export default HomePage;

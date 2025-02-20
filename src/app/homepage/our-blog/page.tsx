@@ -130,7 +130,7 @@ const OurBlogPage = () => {
     (message) => message.userInfo.username === "FitMaster"
   );
 
-  return <ActionAndPostList postList={filterMessages} />;
+  return <ActionAndPostList isEditable postList={filterMessages} />;
 };
 
 export default OurBlogPage;

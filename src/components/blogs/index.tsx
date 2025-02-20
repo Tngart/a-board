@@ -12,7 +12,7 @@ interface IProps {
   isEditable?: boolean;
 }
 
-const ActionAndPostList: FC<IProps> = ({ postList }) => {
+const ActionAndPostList: FC<IProps> = ({ postList, isEditable }) => {
   const [communitySelected, setCommunitySelected] = useState<CommunityEnum[]>(
     []
   );
@@ -47,7 +47,7 @@ const ActionAndPostList: FC<IProps> = ({ postList }) => {
         <PostList
           posts={postListFiltered}
           topicFiltered={filterTwoAlphabet}
-          isEditable
+          isEditable={isEditable}
         />
       ) : (
         <EmptyState />
