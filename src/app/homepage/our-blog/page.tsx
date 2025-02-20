@@ -6,6 +6,7 @@ import { CommunityEnum } from "@/app/enum";
 const OurBlogPage = () => {
   const messages: MessageProps[] = [
     {
+      _id: "12345",
       avatarSrc: "/static/images/avatar/1.jpg",
       avatarAlt: "Remy Sharp",
       primaryText: "Brunch this weekend?",
@@ -15,6 +16,7 @@ const OurBlogPage = () => {
       username: "Remy Sharp",
     },
     {
+      _id: "12345",
       avatarSrc: "/static/images/avatar/2.jpg",
       avatarAlt: "Travis Howard",
       primaryText: "Summer BBQ",
@@ -24,6 +26,7 @@ const OurBlogPage = () => {
       username: "Travis Howard",
     },
     {
+      _id: "12345",
       avatarSrc: "/static/images/avatar/3.jpg",
       avatarAlt: "Cindy Baker",
       primaryText: "Oui Oui",
@@ -33,6 +36,7 @@ const OurBlogPage = () => {
       username: "Cindy Baker",
     },
     {
+      _id: "12345",
       avatarSrc: "/static/images/avatar/2.jpg",
       avatarAlt: "Remy Sharp",
       primaryText: "Summer BBQ",

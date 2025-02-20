@@ -15,22 +15,30 @@ const ActionAndPostList: FC<IProps> = ({ postList }) => {
   const [communityFiltered, setCommunityFiltered] = useState<CommunityEnum[]>(
     []
   );
-  const [topicFiltered, setTopicFiltered] = useState<string>();
+  const [topicFiltered, setTopicFiltered] = useState<string>("");
 
-  const postListFiltered = communityFiltered.length
-    ? postList.filter((post) => communityFiltered.includes(post.type))
-    : postList;
+  const filterTwoAlphabet = topicFiltered.length >= 2 ? topicFiltered : "";
+
+  const postListFiltered = postList.filter((post) => {
+    const matchesCommunity =
+      !communityFiltered.length || communityFiltered.includes(post.type);
+    const matchesTopic =
+      !filterTwoAlphabet ||
+      post.primaryText.toLowerCase().includes(filterTwoAlphabet.toLowerCase());
+
+    return matchesCommunity && matchesTopic;
+  });
 
   return (
     <div className="w-[798px]">
       <Action
         communityFiltered={communityFiltered}
-        topicFiltered={topicFiltered}
+        topicFiltered={filterTwoAlphabet}
         setCommunityFiltered={setCommunityFiltered}
         setTopicFiltered={setTopicFiltered}
       />
       {postListFiltered.length ? (
-        <PostList posts={postListFiltered} />
+        <PostList posts={postListFiltered} topicFiltered={filterTwoAlphabet} />
       ) : (
         <EmptyState />
       )}

@@ -218,6 +218,15 @@ const theme = createTheme({
     fontFamily: inter.style.fontFamily,
     h6: {
       fontWeight: 600,
+      fontSize: "16px",
+    },
+    body2: {
+      fontWeight: 400,
+      fontSize: "12px",
+    },
+    subtitle1: {
+      fontWeight: 500,
+      fontSize: "14px",
     },
   },
 });

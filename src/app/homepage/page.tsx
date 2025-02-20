@@ -4,6 +4,7 @@ import { CommunityEnum } from "../enum";
 const HomePage = () => {
   const messages = [
     {
+      _id: "12345",
       avatarSrc: "/static/images/avatar/1.jpg",
       avatarAlt: "Remy Sharp",
       primaryText: "Brunch this weekend?",
@@ -13,6 +14,7 @@ const HomePage = () => {
       username: "Remy Sharp",
     },
     {
+      _id: "12345",
       avatarSrc: "/static/images/avatar/2.jpg",
       avatarAlt: "Travis Howard",
       primaryText: "Summer BBQ",
@@ -22,6 +24,7 @@ const HomePage = () => {
       username: "Travis Howard",
     },
     {
+      _id: "12345",
       avatarSrc: "/static/images/avatar/3.jpg",
       avatarAlt: "Cindy Baker",
       primaryText: "Oui Oui",

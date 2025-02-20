@@ -6,8 +6,9 @@ import { MessageProps } from "../../app/types";
 
 interface IProps {
   posts: MessageProps[];
+  topicFiltered: string;
 }
-const PostList: FC<IProps> = ({ posts }) => {
+const PostList: FC<IProps> = ({ posts, topicFiltered }) => {
   return (
     <div className="p-[16px]">
       <List
@@ -15,7 +16,7 @@ const PostList: FC<IProps> = ({ posts }) => {
       >
         {posts.map((post, index) => (
           <Fragment key={index}>
-            <PostItem {...post} />
+            <PostItem post={post} topicFiltered={topicFiltered} />
             {index < posts.length - 1 && <Divider component="li" />}
           </Fragment>
         ))}

@@ -1,6 +1,7 @@
 import { CommunityEnum } from "./enum";
 
 export interface MessageProps {
+  _id: string;
   avatarSrc: string;
   avatarAlt: string;
   primaryText: string;
