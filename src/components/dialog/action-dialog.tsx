@@ -55,9 +55,15 @@ const ActionDialog: FC<IProps> = ({ currentPost, open, title, setOpen }) => {
           }
           variantButton="outlined"
           menuWidth={{ xs: 310, md: 310 }}
+          menuPosition="right"
         />
-        <Input placeholder="Title" />
-        <Input placeholder="What's on your mind..." multiline rows={9} />
+        <Input placeholder="Title" defaultValue={currentPost?.topic} />
+        <Input
+          placeholder="What's on your mind..."
+          multiline
+          defaultValue={currentPost?.description}
+          rows={9}
+        />
       </DialogContent>
       <DialogActions>
         <Box

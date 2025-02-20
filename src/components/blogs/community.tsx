@@ -2,13 +2,20 @@ import * as React from "react";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import { Check, KeyboardArrowDown } from "@mui/icons-material";
-import { Backdrop, Button, ButtonProps, Typography } from "@mui/material";
+import {
+  Backdrop,
+  Button,
+  ButtonProps,
+  PopoverOrigin,
+  Typography,
+} from "@mui/material";
 import { useState } from "react";
 import { EnumToOptions } from "@/app/helpers";
 import { CommunityEnum } from "@/app/enum";
 
 interface CommunityProps {
   communitySelected: CommunityEnum[];
+  menuPosition: "left" | "right";
   menuWidth: { xs: number; md: number };
   variantButton: ButtonProps["variant"];
   textButton: string;
@@ -17,6 +24,7 @@ interface CommunityProps {
 
 const Community: React.FC<CommunityProps> = ({
   variantButton,
+  menuPosition,
   menuWidth,
   textButton,
   communitySelected,
@@ -40,6 +48,15 @@ const Community: React.FC<CommunityProps> = ({
     }
 
     setCommunitySelected([...communitySelected, selected]);
+  };
+  const anchorOrigin: PopoverOrigin = {
+    vertical: "bottom",
+    horizontal: menuPosition === "right" ? "left" : "right",
+  };
+
+  const transformOrigin: PopoverOrigin = {
+    vertical: "top",
+    horizontal: menuPosition === "right" ? "left" : "right",
   };
 
   return (
@@ -67,11 +84,12 @@ const Community: React.FC<CommunityProps> = ({
             sx: {
               width: { xs: menuWidth.xs, md: menuWidth.md },
               position: "relative",
-              zIndex: (theme) => theme.zIndex.appBar + 2,
-              paddingBottom: 1,
+              paddingY: 1,
             },
           },
         }}
+        anchorOrigin={anchorOrigin}
+        transformOrigin={transformOrigin}
       >
         {EnumToOptions(CommunityEnum).map((option) => (
           <MenuItem

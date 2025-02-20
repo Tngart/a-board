@@ -72,6 +72,7 @@ const Action: FC<IProps> = ({
             communitySelected={communitySelected}
             setCommunitySelected={setCommunitySelected}
             menuWidth={{ xs: 200, md: 300 }}
+            menuPosition="left"
           />
           <Button
             variant="contained"
