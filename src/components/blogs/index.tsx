@@ -1,6 +1,6 @@
 "use client";
 
-import React, { FC, useState } from "react";
+import React, { FC, useMemo, useState } from "react";
 import Action from "../../components/blogs/action";
 import PostList from "../../components/blogs/posts";
 import { CommunityEnum } from "@/app/enum";
@@ -19,15 +19,20 @@ const ActionAndPostList: FC<IProps> = ({ postList }) => {
 
   const filterTwoAlphabet = topicFiltered.length >= 2 ? topicFiltered : "";
 
-  const postListFiltered = postList.filter((post) => {
-    const matchesCommunity =
-      !communityFiltered.length || communityFiltered.includes(post.type);
-    const matchesTopic =
-      !filterTwoAlphabet ||
-      post.primaryText.toLowerCase().includes(filterTwoAlphabet.toLowerCase());
+  const postListFiltered = useMemo(
+    () =>
+      postList.filter((post) => {
+        const matchesCommunity =
+          !communityFiltered.length ||
+          communityFiltered.includes(post.community);
+        const matchesTopic =
+          !filterTwoAlphabet ||
+          post.topic.toLowerCase().includes(filterTwoAlphabet.toLowerCase());
 
-    return matchesCommunity && matchesTopic;
-  });
+        return matchesCommunity && matchesTopic;
+      }),
+    [communityFiltered, filterTwoAlphabet, postList]
+  );
 
   return (
     <div className="w-[798px]">

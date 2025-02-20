@@ -2,16 +2,21 @@ import { CommunityEnum } from "./enum";
 
 export interface MessageProps {
   _id: string;
-  avatarSrc: string;
-  avatarAlt: string;
-  primaryText: string;
-  secondaryText: string;
-  secondaryUser: string;
-  type: CommunityEnum;
-  username: string;
+  comments: Comments[];
+  community: CommunityEnum;
+  description: string;
+  topic: string;
+  userInfo: UserInfo;
+  updatedAt: string;
 }
 
 export interface ListData {
   label: Record[string];
   value: Record[string];
+}
+
+export interface Comments {
+  username: string;
+  message: string;
+  updatedAt: string;
 }

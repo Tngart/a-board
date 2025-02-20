@@ -62,6 +62,7 @@ const Community: React.FC<CommunityProps> = ({
               width: { xs: "200px", sm: "320px" },
               position: "relative",
               zIndex: (theme) => theme.zIndex.appBar + 2,
+              paddingBottom: 1,
             },
           },
         }}

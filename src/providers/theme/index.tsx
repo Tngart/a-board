@@ -135,6 +135,28 @@ const theme = createTheme({
         },
       },
     },
+    MuiFab: {
+      defaultProps: {
+        disableRipple: true,
+        size: "small",
+      },
+      styleOverrides: {
+        primary: {
+          background: "rgba(216, 233, 228, 1)",
+          ":hover": {
+            background: "rgba(216, 233, 228, 1)",
+          },
+          color: "rgba(36, 56, 49, 1)",
+        },
+        root: {
+          fontSize: "44px",
+          boxShadow: "none",
+          ":active": {
+            boxShadow: "none",
+          },
+        },
+      },
+    },
     MuiInputBase: {
       styleOverrides: {
         root: {
@@ -153,6 +175,10 @@ const theme = createTheme({
     },
     MuiOutlinedInput: {
       styleOverrides: {
+        multiline: {
+          borderRadius: "8px",
+          height: "auto",
+        },
         root: {
           borderRadius: "8px",
           height: "40px",
@@ -216,6 +242,10 @@ const theme = createTheme({
   },
   typography: {
     fontFamily: inter.style.fontFamily,
+    h3: {
+      fontWeight: 600,
+      fontSize: "28px",
+    },
     h6: {
       fontWeight: 600,
       fontSize: "16px",
@@ -227,6 +257,11 @@ const theme = createTheme({
     subtitle1: {
       fontWeight: 500,
       fontSize: "14px",
+    },
+    subtitle2: {
+      fontWeight: 400,
+      fontSize: "12px",
+      color: "rgba(147, 148, 148, 1)",
     },
   },
 });

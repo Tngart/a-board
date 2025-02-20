@@ -6,11 +6,9 @@ const AppBar = dynamic(() => import("@/components/app-bar"));
 
 export default function RootLayout({ children }: PropsWithChildren) {
   return (
-    <html lang="en">
-      <body>
-        <AppBar />
-        <Box className="pt-20 flex justify-center min-h-dvh">{children}</Box>
-      </body>
-    </html>
+    <body>
+      <AppBar />
+      <Box className="pt-[56px] flex justify-center min-h-dvh">{children}</Box>
+    </body>
   );
 }

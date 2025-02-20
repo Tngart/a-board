@@ -36,7 +36,7 @@ const Action: FC<IProps> = ({
   };
 
   return (
-    <div className="flex justify-between gap-[10px] p-[16px]">
+    <div className="flex justify-between gap-[10px] p-[16px] mt-4">
       {!visibleSearch && isMobile ? (
         <div className="ml-1.5">
           <IconButton

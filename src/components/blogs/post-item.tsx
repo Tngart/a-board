@@ -1,4 +1,4 @@
-"use Client";
+"use client";
 
 import { FC } from "react";
 import { MessageProps } from "@/app/types";
@@ -7,74 +7,90 @@ import ListItemText from "@mui/material/ListItemText";
 import ListItemAvatar from "@mui/material/ListItemAvatar";
 import Avatar from "@mui/material/Avatar";
 import Typography from "@mui/material/Typography";
-import { Button, Chip, ListItemIcon } from "@mui/material";
+import { Chip } from "@mui/material";
 import { FaRegComment } from "react-icons/fa";
 import { Fragment } from "react";
 import { highlightText, SetToLabel } from "@/app/helpers";
-import { useRouter } from "next/navigation";
 import Link from "next/link";
-
+import dayjs from "dayjs";
+import relativeTime from "dayjs/plugin/relativeTime";
 interface IProps {
   post: MessageProps;
   topicFiltered?: string;
+  isPostDetail?: boolean;
 }
-const PostItem: FC<IProps> = ({ post, topicFiltered }) => {
-  const {
-    _id,
-    avatarAlt,
-    primaryText,
-    secondaryText,
-    secondaryUser,
-    type,
-    username,
-  } = post;
-  const router = useRouter();
+const PostItem: FC<IProps> = ({ isPostDetail, post, topicFiltered }) => {
+  const { _id, comments, community, description, topic, userInfo, updatedAt } =
+    post;
+  dayjs.extend(relativeTime);
 
   return (
-    <ListItem sx={{ padding: "20px 20px", display: "block", width: "100%" }}>
+    <ListItem sx={{ padding: "20px", display: "block", width: "100%" }}>
       <ListItemAvatar className="flex items-center gap-2 text-gray-500">
-        <Avatar alt={avatarAlt} src={"/avatar.svg"} />
-        <Typography variant="subtitle1">{username}</Typography>
+        <Avatar alt={userInfo._id} src={"/avatar.svg"} />
+        <Typography variant="subtitle1">{userInfo.username}</Typography>
+        <Typography variant="subtitle2">
+          {dayjs(updatedAt).fromNow()}
+        </Typography>
       </ListItemAvatar>
-      <ListItemIcon>
-        <Chip
-          label={SetToLabel(type)}
-          sx={{ marginTop: "10px", fontSize: "10px" }}
-        />
-      </ListItemIcon>
+      <Chip
+        size="small"
+        label={SetToLabel(community)}
+        sx={{ marginTop: "10px", fontSize: "10px" }}
+      />
       <ListItemText
-        sx={{ padding: 0 }}
         primary={
-          <Link href={`/homepage/${_id}`}>
-            <Typography variant="h6">
-              {highlightText(primaryText, topicFiltered)}
-            </Typography>
-          </Link>
+          isPostDetail ? (
+            <div className="mb-4">
+              <Typography variant="h3">{topic}</Typography>
+            </div>
+          ) : (
+            <Link href={`/homepage/${_id}`}>
+              <Typography variant="h6">
+                {highlightText(topic, topicFiltered)}
+              </Typography>
+            </Link>
+          )
         }
         secondary={
           <Fragment>
             <Typography
               component="span"
               variant="body2"
-              sx={{ color: "text.primary", display: "inline" }}
+              sx={{
+                color: "text.primary",
+                display: "inline",
+              }}
             >
-              {secondaryUser}
+              {description}
             </Typography>
-            {` — ${secondaryText}`}
           </Fragment>
         }
       />
-      <Button
-        size="small"
-        disableRipple
-        sx={{ color: "gray", fontWeight: 400, fontSize: "12px" }}
-        onClick={() => router.push(`/homepage/${_id}`)}
-      >
-        <div className="flex items-center gap-2">
+
+      {isPostDetail ? (
+        <p
+          className="flex items-center gap-2 mt-6"
+          style={{
+            color: "gray",
+            fontWeight: 400,
+            fontSize: "12px",
+          }}
+        >
           <FaRegComment fontSize="12px" />
-          32 Comments
-        </div>
-      </Button>
+          {comments?.length} Comments
+        </p>
+      ) : (
+        <Link
+          href={`/homepage/${_id}`}
+          style={{ color: "gray", fontWeight: 400, fontSize: "12px" }}
+        >
+          <div className="flex items-center gap-2">
+            <FaRegComment fontSize="12px" />
+            {comments?.length} Comments
+          </div>
+        </Link>
+      )}
     </ListItem>
   );
 };
