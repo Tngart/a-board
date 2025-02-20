@@ -1,3 +1,4 @@
+@import url("https://fonts.googleapis.com/css2?family=Castoro:ital,wght@1,400&display=swap");
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -18,4 +19,9 @@ body {
   color: var(--foreground);
   background: var(--background);
   font-family: Arial, Helvetica, sans-serif;
+}
+
+.typography-brand {
+  font-family: "Castoro", serif !important;
+  font-style: italic;
 }

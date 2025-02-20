@@ -26,7 +26,11 @@ const Header: FC<HeaderProps> = ({
           <Typography variant="h4">{heading}</Typography>
         </Skeleton>
       ) : (
-        <Typography variant="h4" color="primary.contrastText">
+        <Typography
+          fontWeight={"bold"}
+          variant="h4"
+          color="primary.contrastText"
+        >
           {parent && (
             <Typography variant="body1" color="secondary">
               <span

@@ -4,8 +4,8 @@ import { PropsWithChildren } from "react";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Data wow",
-  description: "Data wow",
+  title: "A-board",
+  description: "Blogging platform",
   icons: {
     apple: "/apple-touch-icon.png",
     icon: ["/favicon.ico", "/favicon.svg"],
