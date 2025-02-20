@@ -8,17 +8,19 @@ import { EnumToOptions } from "@/app/helpers";
 import { CommunityEnum } from "@/app/enum";
 
 interface CommunityProps {
-  communityFiltered: CommunityEnum[];
+  communitySelected: CommunityEnum[];
+  menuWidth: { xs: number; md: number };
   variantButton: ButtonProps["variant"];
   textButton: string;
-  setCommunityFiltered: (filtered: CommunityEnum[]) => void;
+  setCommunitySelected: (filtered: CommunityEnum[]) => void;
 }
 
 const Community: React.FC<CommunityProps> = ({
   variantButton,
+  menuWidth,
   textButton,
-  communityFiltered,
-  setCommunityFiltered,
+  communitySelected,
+  setCommunitySelected,
 }) => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
@@ -30,14 +32,14 @@ const Community: React.FC<CommunityProps> = ({
     setAnchorEl(null);
   };
   const handleSelectCommunity = (selected: CommunityEnum) => {
-    if (communityFiltered.includes(selected)) {
-      setCommunityFiltered(
-        communityFiltered.filter((item) => item !== selected)
+    if (communitySelected.includes(selected)) {
+      setCommunitySelected(
+        communitySelected.filter((item) => item !== selected)
       );
       return;
     }
 
-    setCommunityFiltered([...communityFiltered, selected]);
+    setCommunitySelected([...communitySelected, selected]);
   };
 
   return (
@@ -47,6 +49,7 @@ const Community: React.FC<CommunityProps> = ({
         variant={variantButton}
         onClick={handleClick}
         endIcon={<KeyboardArrowDown />}
+        sx={{ width: { xs: "100%", sm: "auto" } }}
       >
         {textButton}
       </Button>
@@ -56,34 +59,29 @@ const Community: React.FC<CommunityProps> = ({
         anchorEl={anchorEl}
         open={open}
         onClose={handleClose}
+        sx={{
+          marginTop: "10px",
+        }}
         slotProps={{
           paper: {
             sx: {
-              width: { xs: "200px", sm: "320px" },
+              width: { xs: menuWidth.xs, md: menuWidth.md },
               position: "relative",
               zIndex: (theme) => theme.zIndex.appBar + 2,
               paddingBottom: 1,
             },
           },
         }}
-        anchorOrigin={{
-          vertical: "bottom",
-          horizontal: "right",
-        }}
-        transformOrigin={{
-          vertical: "top",
-          horizontal: "right",
-        }}
       >
         {EnumToOptions(CommunityEnum).map((option) => (
           <MenuItem
             key={option.value}
-            selected={communityFiltered.includes(option.value)}
+            selected={communitySelected.includes(option.value)}
             onClick={handleSelectCommunity.bind(this, option.value)}
           >
             <div className="flex justify-between w-full">
               <Typography>{option.label}</Typography>
-              {communityFiltered.includes(option.value) && (
+              {communitySelected.includes(option.value) && (
                 <Check sx={{ fontSize: 20 }} />
               )}
             </div>

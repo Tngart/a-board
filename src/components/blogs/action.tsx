@@ -11,22 +11,24 @@ import React, { ChangeEvent, FC, useState } from "react";
 import Community from "./community";
 import { useMediaQuery, useTheme } from "@mui/material";
 import { CommunityEnum } from "../../app/enum";
+import CreateDialog from "../dialog/create-dialog";
 
 interface IProps {
-  communityFiltered: CommunityEnum[];
+  communitySelected: CommunityEnum[];
   topicFiltered?: string;
-  setCommunityFiltered: (filtered: CommunityEnum[]) => void;
+  setCommunitySelected: (filtered: CommunityEnum[]) => void;
   setTopicFiltered: (filtered: string) => void;
 }
 
 const Action: FC<IProps> = ({
-  communityFiltered,
-  setCommunityFiltered,
+  communitySelected,
+  setCommunitySelected,
   setTopicFiltered,
 }) => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
   const [visibleSearch, setVisibleSearch] = useState(false);
+  const [openDialog, setOpenDialog] = useState(false);
 
   const handleChange = (
     event: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>
@@ -67,14 +69,20 @@ const Action: FC<IProps> = ({
           <Community
             variantButton="text"
             textButton="Community"
-            communityFiltered={communityFiltered}
-            setCommunityFiltered={setCommunityFiltered}
+            communitySelected={communitySelected}
+            setCommunitySelected={setCommunitySelected}
+            menuWidth={{ xs: 200, md: 300 }}
           />
-          <Button variant="contained" endIcon={<Add />}>
+          <Button
+            variant="contained"
+            endIcon={<Add />}
+            onClick={() => setOpenDialog(true)}
+          >
             Create
           </Button>
         </div>
       )}
+      <CreateDialog open={openDialog} setOpen={setOpenDialog} />
     </div>
   );
 };

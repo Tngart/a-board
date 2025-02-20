@@ -12,7 +12,7 @@ interface IProps {
 }
 
 const ActionAndPostList: FC<IProps> = ({ postList }) => {
-  const [communityFiltered, setCommunityFiltered] = useState<CommunityEnum[]>(
+  const [communitySelected, setCommunitySelected] = useState<CommunityEnum[]>(
     []
   );
   const [topicFiltered, setTopicFiltered] = useState<string>("");
@@ -23,23 +23,23 @@ const ActionAndPostList: FC<IProps> = ({ postList }) => {
     () =>
       postList.filter((post) => {
         const matchesCommunity =
-          !communityFiltered.length ||
-          communityFiltered.includes(post.community);
+          !communitySelected.length ||
+          communitySelected.includes(post.community);
         const matchesTopic =
           !filterTwoAlphabet ||
           post.topic.toLowerCase().includes(filterTwoAlphabet.toLowerCase());
 
         return matchesCommunity && matchesTopic;
       }),
-    [communityFiltered, filterTwoAlphabet, postList]
+    [communitySelected, filterTwoAlphabet, postList]
   );
 
   return (
     <div className="w-[798px]">
       <Action
-        communityFiltered={communityFiltered}
+        communitySelected={communitySelected}
         topicFiltered={filterTwoAlphabet}
-        setCommunityFiltered={setCommunityFiltered}
+        setCommunitySelected={setCommunitySelected}
         setTopicFiltered={setTopicFiltered}
       />
       {postListFiltered.length ? (

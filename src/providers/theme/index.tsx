@@ -47,13 +47,6 @@ const theme = createTheme({
         }),
       },
     },
-    MuiBackdrop: {
-      styleOverrides: {
-        root: ({ theme }) => ({
-          zIndex: theme.zIndex.appBar + 2,
-        }),
-      },
-    },
     MuiDrawer: {
       styleOverrides: {
         paper: ({ theme }) => ({
@@ -194,6 +187,44 @@ const theme = createTheme({
         },
       },
     },
+    MuiBackdrop: {
+      styleOverrides: {
+        root: ({ theme }) => ({
+          zIndex: theme.zIndex.appBar + 2,
+        }),
+      },
+    },
+    MuiDialog: {
+      styleOverrides: {
+        paper: {
+          borderRadius: "12px",
+        },
+      },
+    },
+    MuiDialogTitle: {
+      styleOverrides: {
+        root: {
+          padding: "24px 20px",
+        },
+      },
+    },
+    MuiDialogContent: {
+      styleOverrides: {
+        root: {
+          padding: "0px 20px",
+          gap: "4px",
+          display: "flex",
+          flexDirection: "column",
+        },
+      },
+    },
+    MuiDialogActions: {
+      styleOverrides: {
+        root: {
+          padding: "20px",
+        },
+      },
+    },
     MuiMenuItem: {
       styleOverrides: {
         root: {
@@ -242,6 +273,10 @@ const theme = createTheme({
   },
   typography: {
     fontFamily: inter.style.fontFamily,
+    h2: {
+      fontWeight: 600,
+      fontSize: "28px",
+    },
     h3: {
       fontWeight: 600,
       fontSize: "28px",
