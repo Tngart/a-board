@@ -30,6 +30,10 @@ const theme = createTheme({
     success: {
       main: "rgba(73, 165, 105, 1)",
     },
+    action: {
+      disabledBackground: "rgba(147, 148, 148, 1)",
+      disabled: "rgba(187, 194, 192, 1)",
+    },
   },
   components: {
     MuiAppBar: {

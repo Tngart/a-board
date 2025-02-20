@@ -15,11 +15,7 @@ interface IProps {
 }
 
 const LoginForm: FC<IProps> = ({ loading, flow, setFlow, onSubmit }) => {
-  const {
-    control,
-    handleSubmit,
-    formState: { isValid },
-  } = useForm<{ username: string }>({
+  const { watch, control, handleSubmit } = useForm<{ username: string }>({
     mode: "all",
     defaultValues: { username: "" },
   });
@@ -45,11 +41,11 @@ const LoginForm: FC<IProps> = ({ loading, flow, setFlow, onSubmit }) => {
               control={control}
               name={"username"}
               placeholder="Username"
-              sx={{ background: "white", borderRadius: "8px" }}
+              sx={{ background: "white", borderRadius: "8px", height: "40px" }}
             />
             <Button
               variant="contained"
-              disabled={!isValid}
+              disabled={!watch("username")}
               loading={loading}
               type="submit"
               color="success"
