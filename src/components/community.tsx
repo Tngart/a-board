@@ -82,7 +82,7 @@ const Community: React.FC<CommunityProps> = ({ variantButton, textButton }) => {
           >
             <div className="flex justify-between w-full">
               <Typography>{option}</Typography>
-              {selectedList.includes(option) && <Check />}
+              {selectedList.includes(option) && <Check sx={{ fontSize: 20 }} />}
             </div>
           </MenuItem>
         ))}
