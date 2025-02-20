@@ -18,7 +18,7 @@ import { FiEdit3, FiTrash2 } from "react-icons/fi";
 import ActionDialog from "../dialog/action-dialog";
 import DeleteDialog from "../dialog/delete-dialog";
 interface IProps {
-  post: PostResponse;
+  post?: PostResponse;
   topicFiltered?: string;
   isPostDetail?: boolean;
   isEditable?: boolean;
@@ -33,8 +33,9 @@ const PostItem: FC<IProps> = ({
   isEditable,
 }) => {
   const theme = useTheme();
+
   const { _id, comments, community, description, topic, userInfo, updatedAt } =
-    post;
+    post!;
 
   const [openEditDialog, setOpenEditDialog] = useState(false);
   const [openDeleteDialog, setOpenDeleteDialog] = useState(false);

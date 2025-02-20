@@ -5,13 +5,13 @@ import { Comments } from "../../app/types";
 import CommentItem from "./comment-item";
 
 interface IProps {
-  comments: Comments[];
+  comments?: Comments[];
 }
 const CommentList: FC<IProps> = ({ comments }) => {
   return (
     <div className="p-[16px]">
       <List>
-        {comments.map((comment, index) => (
+        {comments?.map((comment, index) => (
           <Fragment key={index}>
             <CommentItem comment={comment} index={index} />
           </Fragment>
