@@ -53,3 +53,20 @@
   font-size: 28px !important;
   color: var(--secondary-contrastText) !important;
 }
+
+.text-link-container {
+  gap: 2;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.text-white {
+  color: white;
+}
+
+.link-action {
+  cursor: pointer;
+  text-decoration: underline;
+  color: #2563eb;
+}

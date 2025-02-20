@@ -4,9 +4,9 @@ import { useCallback, useState } from "react";
 import LoginForm from "./login-form";
 
 const SignIn = () => {
-  const [loading, setLoading] = useState<boolean>();
-
   const router = useRouter();
+  const [flow, setFlow] = useState<"login" | "register">("login");
+  const [loading, setLoading] = useState<boolean>();
 
   const onSubmit = useCallback(
     async ({ username }: { username: string }) => {
@@ -20,6 +20,13 @@ const SignIn = () => {
     [router]
   );
 
-  return <LoginForm loading={loading} onSubmit={onSubmit} />;
+  return (
+    <LoginForm
+      loading={loading}
+      onSubmit={onSubmit}
+      setFlow={setFlow}
+      flow={flow}
+    />
+  );
 };
 export default SignIn;

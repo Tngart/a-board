@@ -8,12 +8,13 @@ import { FC } from "react";
 import { useForm } from "react-hook-form";
 
 interface IProps {
+  flow: "login" | "register";
   loading?: boolean;
   onSubmit?: ({ username }: { username: string }) => void;
-  onUsernameChange?: (value: string) => void;
+  setFlow: (value: "login" | "register") => void;
 }
 
-const LoginForm: FC<IProps> = ({ loading, onSubmit }) => {
+const LoginForm: FC<IProps> = ({ loading, flow, setFlow, onSubmit }) => {
   const {
     control,
     handleSubmit,
@@ -38,7 +39,7 @@ const LoginForm: FC<IProps> = ({ loading, onSubmit }) => {
         <Grid className="form-grid" size={{ xs: 12, md: 7 }}>
           <Stack spacing={2}>
             <div className="mb-6">
-              <Header heading={"Sign in"} />
+              <Header heading={flow === "login" ? "Sign in" : "Register"} />
             </div>
             <Input
               control={control}
@@ -55,6 +56,26 @@ const LoginForm: FC<IProps> = ({ loading, onSubmit }) => {
             >
               Sign in
             </Button>
+            <div className="text-link-container">
+              {flow === "login" ? (
+                <Typography variant="body2" className="text-white">
+                  Do not have an account?{" "}
+                  <a
+                    className="link-action"
+                    onClick={() => setFlow("register")}
+                  >
+                    Register
+                  </a>
+                </Typography>
+              ) : (
+                <Typography variant="body2" className="text-white">
+                  Already have an account?{" "}
+                  <a className="link-action" onClick={() => setFlow("login")}>
+                    Sign in
+                  </a>
+                </Typography>
+              )}
+            </div>
           </Stack>
         </Grid>
 
