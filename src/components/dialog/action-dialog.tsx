@@ -6,15 +6,19 @@ import DialogTitle from "@mui/material/DialogTitle";
 import Community from "../blogs/community";
 import { CommunityEnum } from "@/app/enum";
 import Input from "../input";
-import { Box, IconButton, Typography } from "@mui/material";
+import { Box, IconButton } from "@mui/material";
 import { Close } from "@mui/icons-material";
 import { FC, useState } from "react";
+import { PostResponse } from "@/app/types";
+import { SetToLabel } from "@/app/helpers";
 
 interface IProps {
+  currentPost?: PostResponse;
+  title: string;
   open: boolean;
   setOpen: (trigger: boolean) => void;
 }
-const CreateDialog: FC<IProps> = ({ open, setOpen }) => {
+const ActionDialog: FC<IProps> = ({ currentPost, open, title, setOpen }) => {
   const [communitySelected, setCommunitySelected] = useState<CommunityEnum[]>(
     []
   );
@@ -41,14 +45,14 @@ const CreateDialog: FC<IProps> = ({ open, setOpen }) => {
       >
         <Close />
       </IconButton>
-      <DialogTitle id="create-post">
-        <Typography variant="h3">Create Post</Typography>
-      </DialogTitle>
+      <DialogTitle id="create-post">{title}</DialogTitle>
       <DialogContent>
         <Community
           communitySelected={communitySelected}
           setCommunitySelected={setCommunitySelected}
-          textButton="Choose a community"
+          textButton={
+            SetToLabel(currentPost?.community) || "Choose a community"
+          }
           variantButton="outlined"
           menuWidth={{ xs: 310, md: 310 }}
         />
@@ -84,4 +88,4 @@ const CreateDialog: FC<IProps> = ({ open, setOpen }) => {
   );
 };
 
-export default CreateDialog;
+export default ActionDialog;

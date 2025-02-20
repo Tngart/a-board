@@ -11,7 +11,7 @@ import React, { ChangeEvent, FC, useState } from "react";
 import Community from "./community";
 import { useMediaQuery, useTheme } from "@mui/material";
 import { CommunityEnum } from "../../app/enum";
-import CreateDialog from "../dialog/create-dialog";
+import ActionDialog from "../dialog/action-dialog";
 
 interface IProps {
   communitySelected: CommunityEnum[];
@@ -82,7 +82,11 @@ const Action: FC<IProps> = ({
           </Button>
         </div>
       )}
-      <CreateDialog open={openDialog} setOpen={setOpenDialog} />
+      <ActionDialog
+        open={openDialog}
+        setOpen={setOpenDialog}
+        title={"Create Post"}
+      />
     </div>
   );
 };

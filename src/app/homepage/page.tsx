@@ -1,9 +1,9 @@
 import ActionAndPostList from "@/components/blogs";
 import { CommunityEnum } from "../enum";
-import { MessageProps } from "../types";
+import { PostResponse } from "../types";
 
 const HomePage = () => {
-  const mockPosts: MessageProps[] = [
+  const mockPosts: PostResponse[] = [
     {
       _id: "12345",
       community: CommunityEnum.Food,
@@ -125,7 +125,7 @@ const HomePage = () => {
     },
   ];
 
-  return <ActionAndPostList postList={mockPosts} />;
+  return <ActionAndPostList isEditable postList={mockPosts} />;
 };
 
 export default HomePage;

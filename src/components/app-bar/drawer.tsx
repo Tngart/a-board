@@ -72,7 +72,7 @@ const DrawerComponent: FC<DrawerProps> = ({
           <ChevronRight />
         </IconButton>
       </DrawerHeader>
-      <List>
+      <List sx={{ paddingTop: "2px" }}>
         {listMenu.map((menu) => {
           const isActive = pathname === menu.path;
           return (
@@ -110,7 +110,7 @@ const DrawerComponent: FC<DrawerProps> = ({
       </MuiDrawer>
       <MuiDrawer
         variant="permanent"
-        sx={{ display: { xs: "none", sm: "block" } }}
+        sx={{ display: { xs: "none", sm: "block", paddingTop: "20px" } }}
         open
       >
         {drawer}

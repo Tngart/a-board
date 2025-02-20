@@ -1,6 +1,6 @@
 import { CommunityEnum } from "./enum";
 
-export interface MessageProps {
+export interface PostResponse {
   _id: string;
   comments: Comments[];
   community: CommunityEnum;

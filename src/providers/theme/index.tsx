@@ -73,7 +73,7 @@ const theme = createTheme({
     MuiList: {
       styleOverrides: {
         root: {
-          paddingTop: 10,
+          paddingTop: 0,
           paddingBottom: 0,
           paddingRight: 0,
           paddingLeft: 0,

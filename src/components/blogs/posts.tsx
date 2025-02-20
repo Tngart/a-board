@@ -2,11 +2,12 @@ import List from "@mui/material/List";
 import Divider from "@mui/material/Divider";
 import { FC, Fragment } from "react";
 import PostItem from "@/components/blogs/post-item";
-import { MessageProps } from "../../app/types";
+import { PostResponse } from "../../app/types";
 
 interface IProps {
-  posts: MessageProps[];
+  posts: PostResponse[];
   topicFiltered: string;
+  isEditable?: boolean;
 }
 const PostList: FC<IProps> = ({ posts, topicFiltered }) => {
   return (
@@ -16,7 +17,7 @@ const PostList: FC<IProps> = ({ posts, topicFiltered }) => {
       >
         {posts.map((post, index) => (
           <Fragment key={index}>
-            <PostItem post={post} topicFiltered={topicFiltered} />
+            <PostItem post={post} topicFiltered={topicFiltered} isEditable />
             {index < posts.length - 1 && <Divider component="li" />}
           </Fragment>
         ))}

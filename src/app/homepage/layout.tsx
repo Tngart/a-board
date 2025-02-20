@@ -8,7 +8,7 @@ export default function RootLayout({ children }: PropsWithChildren) {
   return (
     <body>
       <AppBar />
-      <Box className="pt-[56px] flex justify-center min-h-dvh">{children}</Box>
+      <Box className="pt-[44px] flex justify-center min-h-dvh">{children}</Box>
     </body>
   );
 }

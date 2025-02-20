@@ -1,6 +1,6 @@
 "use client";
 import { CommunityEnum } from "@/app/enum";
-import { MessageProps } from "@/app/types";
+import { PostResponse } from "@/app/types";
 import CommentList from "@/components/blogs/comments";
 import PostItem from "@/components/blogs/post-item";
 import Input from "@/components/input";
@@ -12,7 +12,7 @@ import React, { useState } from "react";
 const PostDetailPage = () => {
   const router = useRouter();
   const [visibleAddComment, setVisibleAddComment] = useState<boolean>(false);
-  const mockPost: MessageProps = {
+  const mockPost: PostResponse = {
     _id: "12345",
     community: CommunityEnum.Food,
     userInfo: {

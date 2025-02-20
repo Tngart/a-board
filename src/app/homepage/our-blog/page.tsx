@@ -1,10 +1,10 @@
 import React from "react";
-import { MessageProps } from "@/app/types";
+import { PostResponse } from "@/app/types";
 import ActionAndPostList from "@/components/blogs";
 import { CommunityEnum } from "@/app/enum";
 
 const OurBlogPage = () => {
-  const mockPosts: MessageProps[] = [
+  const mockPosts: PostResponse[] = [
     {
       _id: "12345",
       community: CommunityEnum.Food,

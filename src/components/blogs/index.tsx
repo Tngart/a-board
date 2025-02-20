@@ -4,11 +4,12 @@ import React, { FC, useMemo, useState } from "react";
 import Action from "../../components/blogs/action";
 import PostList from "../../components/blogs/posts";
 import { CommunityEnum } from "@/app/enum";
-import { MessageProps } from "@/app/types";
+import { PostResponse } from "@/app/types";
 import EmptyState from "../empty";
 
 interface IProps {
-  postList: MessageProps[];
+  postList: PostResponse[];
+  isEditable?: boolean;
 }
 
 const ActionAndPostList: FC<IProps> = ({ postList }) => {
@@ -43,7 +44,11 @@ const ActionAndPostList: FC<IProps> = ({ postList }) => {
         setTopicFiltered={setTopicFiltered}
       />
       {postListFiltered.length ? (
-        <PostList posts={postListFiltered} topicFiltered={filterTwoAlphabet} />
+        <PostList
+          posts={postListFiltered}
+          topicFiltered={filterTwoAlphabet}
+          isEditable
+        />
       ) : (
         <EmptyState />
       )}
