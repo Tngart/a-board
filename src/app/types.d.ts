@@ -5,7 +5,7 @@ export interface PostResponse {
   comments: Comments[];
   community: CommunityEnum;
   description: string;
-  topic: string;
+  title: string;
   userInfo: UserInfo;
   updatedAt: string;
 }
@@ -24,13 +24,13 @@ export interface Comments {
 export interface PostPostRequest {
   community: CommunityEnum;
   description: string;
-  topic: string;
+  title: string;
 }
 
 export interface PatchPostRequest {
   community?: CommunityEnum;
   description?: string;
-  topic?: string;
+  title?: string;
 }
 
 export interface UserInfo {

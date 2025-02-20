@@ -19,7 +19,7 @@ import ActionDialog from "../dialog/action-dialog";
 import DeleteDialog from "../dialog/delete-dialog";
 interface IProps {
   post?: PostResponse;
-  topicFiltered?: string;
+  titleFiltered?: string;
   isPostDetail?: boolean;
   isEditable?: boolean;
 }
@@ -29,12 +29,12 @@ dayjs.extend(relativeTime);
 const PostItem: FC<IProps> = ({
   isPostDetail,
   post,
-  topicFiltered,
+  titleFiltered,
   isEditable,
 }) => {
   const theme = useTheme();
 
-  const { _id, comments, community, description, topic, userInfo, updatedAt } =
+  const { _id, comments, community, description, title, userInfo, updatedAt } =
     post!;
 
   const [openEditDialog, setOpenEditDialog] = useState(false);
@@ -85,12 +85,12 @@ const PostItem: FC<IProps> = ({
           primary={
             isPostDetail ? (
               <div className="mb-4">
-                <Typography variant="h3">{topic}</Typography>
+                <Typography variant="h3">{title}</Typography>
               </div>
             ) : (
               <Link href={`/homepage/${_id}`}>
                 <Typography variant="h6">
-                  {highlightText(topic, topicFiltered)}
+                  {highlightText(title, titleFiltered)}
                 </Typography>
               </Link>
             )

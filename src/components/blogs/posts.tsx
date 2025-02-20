@@ -6,10 +6,10 @@ import { PostResponse } from "../../app/types";
 
 interface IProps {
   posts: PostResponse[];
-  topicFiltered: string;
+  titleFiltered: string;
   isEditable?: boolean;
 }
-const PostList: FC<IProps> = ({ isEditable, posts, topicFiltered }) => {
+const PostList: FC<IProps> = ({ isEditable, posts, titleFiltered }) => {
   return (
     <div className="p-[16px]">
       <List
@@ -19,7 +19,7 @@ const PostList: FC<IProps> = ({ isEditable, posts, topicFiltered }) => {
           <Fragment key={index}>
             <PostItem
               post={post}
-              topicFiltered={topicFiltered}
+              titleFiltered={titleFiltered}
               isEditable={isEditable}
             />
             {index < posts.length - 1 && <Divider component="li" />}

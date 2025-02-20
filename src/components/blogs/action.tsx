@@ -15,15 +15,15 @@ import ActionDialog from "../dialog/action-dialog";
 
 interface IProps {
   communitySelected: CommunityEnum[];
-  topicFiltered?: string;
+  titleFiltered?: string;
   setCommunitySelected: (filtered: CommunityEnum[]) => void;
-  setTopicFiltered: (filtered: string) => void;
+  setTitleFiltered: (filtered: string) => void;
 }
 
 const Action: FC<IProps> = ({
   communitySelected,
   setCommunitySelected,
-  setTopicFiltered,
+  setTitleFiltered,
 }) => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
@@ -34,7 +34,7 @@ const Action: FC<IProps> = ({
     event: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>
   ) => {
     const filterText = event.target.value;
-    setTopicFiltered(filterText);
+    setTitleFiltered(filterText);
   };
 
   return (
@@ -53,7 +53,7 @@ const Action: FC<IProps> = ({
       ) : (
         <FormControl variant="standard" fullWidth>
           <OutlinedInput
-            id="search-topic"
+            id="search-title"
             placeholder="Search"
             onChange={handleChange}
             startAdornment={

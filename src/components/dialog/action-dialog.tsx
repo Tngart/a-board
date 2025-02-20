@@ -57,7 +57,7 @@ const ActionDialog: FC<IProps> = ({ currentPost, open, title, setOpen }) => {
           menuWidth={{ xs: 310, md: 310 }}
           menuPosition="right"
         />
-        <Input placeholder="Title" defaultValue={currentPost?.topic} />
+        <Input placeholder="Title" defaultValue={currentPost?.title} />
         <Input
           placeholder="What's on your mind..."
           multiline

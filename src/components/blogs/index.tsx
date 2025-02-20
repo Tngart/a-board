@@ -16,9 +16,9 @@ const ActionAndPostList: FC<IProps> = ({ postList, isEditable }) => {
   const [communitySelected, setCommunitySelected] = useState<CommunityEnum[]>(
     []
   );
-  const [topicFiltered, setTopicFiltered] = useState<string>("");
+  const [titleFiltered, setTitleFiltered] = useState<string>("");
 
-  const filterTwoAlphabet = topicFiltered.length >= 2 ? topicFiltered : "";
+  const filterTwoAlphabet = titleFiltered.length >= 2 ? titleFiltered : "";
 
   const postListFiltered = useMemo(
     () =>
@@ -26,11 +26,11 @@ const ActionAndPostList: FC<IProps> = ({ postList, isEditable }) => {
         const matchesCommunity =
           !communitySelected.length ||
           communitySelected.includes(post.community);
-        const matchesTopic =
+        const matchesTitle =
           !filterTwoAlphabet ||
-          post.topic.toLowerCase().includes(filterTwoAlphabet.toLowerCase());
+          post.title.toLowerCase().includes(filterTwoAlphabet.toLowerCase());
 
-        return matchesCommunity && matchesTopic;
+        return matchesCommunity && matchesTitle;
       }),
     [communitySelected, filterTwoAlphabet, postList]
   );
@@ -39,14 +39,14 @@ const ActionAndPostList: FC<IProps> = ({ postList, isEditable }) => {
     <div className="w-[798px]">
       <Action
         communitySelected={communitySelected}
-        topicFiltered={filterTwoAlphabet}
+        titleFiltered={filterTwoAlphabet}
         setCommunitySelected={setCommunitySelected}
-        setTopicFiltered={setTopicFiltered}
+        setTitleFiltered={setTitleFiltered}
       />
       {postListFiltered.length ? (
         <PostList
           posts={postListFiltered}
-          topicFiltered={filterTwoAlphabet}
+          titleFiltered={filterTwoAlphabet}
           isEditable={isEditable}
         />
       ) : (
