@@ -8,6 +8,7 @@ import Typography from "@mui/material/Typography";
 import { Button, Chip, ListItemIcon } from "@mui/material";
 import { FaRegComment } from "react-icons/fa";
 import { Fragment } from "react";
+import { SetToLabel } from "@/app/helpers";
 
 const PostItem: FC<MessageProps> = ({
   username,
@@ -23,7 +24,10 @@ const PostItem: FC<MessageProps> = ({
       <Typography variant="body2">{username}</Typography>
     </ListItemAvatar>
     <ListItemIcon>
-      <Chip label={type} sx={{ marginTop: "10px", fontSize: "10px" }} />
+      <Chip
+        label={SetToLabel(type)}
+        sx={{ marginTop: "10px", fontSize: "10px" }}
+      />
     </ListItemIcon>
     <ListItemText
       sx={{ padding: 0 }}

@@ -1,6 +1,5 @@
-import React from "react";
-import Action from "./action";
-import AlignItemsList from "./blogs";
+import ActionAndPostList from "@/components/blogs";
+import { CommunityEnum } from "../enum";
 
 const HomePage = () => {
   const messages = [
@@ -10,7 +9,7 @@ const HomePage = () => {
       primaryText: "Brunch this weekend?",
       secondaryText: "I'll be in your neighborhood doing errands this…",
       secondaryUser: "Ali Connors",
-      type: "History",
+      type: CommunityEnum.History,
       username: "Remy Sharp",
     },
     {
@@ -19,7 +18,7 @@ const HomePage = () => {
       primaryText: "Summer BBQ",
       secondaryText: "Wish I could come, but I'm out of town this…",
       secondaryUser: "to Scott, Alex, Jennifer",
-      type: "Exercise",
+      type: CommunityEnum.Exercise,
       username: "Travis Howard",
     },
     {
@@ -27,18 +26,13 @@ const HomePage = () => {
       avatarAlt: "Cindy Baker",
       primaryText: "Oui Oui",
       secondaryText: "Do you have Paris recommendations? Have you ever…",
-      type: "Food",
+      type: CommunityEnum.Food,
       secondaryUser: "Sandra Adams",
       username: "Cindy Baker",
     },
   ];
 
-  return (
-    <div className="w-[798px]">
-      <Action />
-      <AlignItemsList posts={messages} />
-    </div>
-  );
+  return <ActionAndPostList postList={messages} />;
 };
 
 export default HomePage;

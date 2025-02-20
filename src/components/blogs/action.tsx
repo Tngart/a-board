@@ -7,14 +7,33 @@ import {
   InputAdornment,
   OutlinedInput,
 } from "@mui/material";
-import React, { useState } from "react";
-import Community from "../../components/community";
+import React, { ChangeEvent, FC, useState } from "react";
+import Community from "./community";
 import { useMediaQuery, useTheme } from "@mui/material";
+import { CommunityEnum } from "../../app/enum";
 
-const Action = () => {
+interface IProps {
+  communityFiltered: CommunityEnum[];
+  topicFiltered?: string;
+  setCommunityFiltered: (filtered: CommunityEnum[]) => void;
+  setTopicFiltered: (filtered: string) => void;
+}
+
+const Action: FC<IProps> = ({
+  communityFiltered,
+  setCommunityFiltered,
+  setTopicFiltered,
+}) => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
   const [visibleSearch, setVisibleSearch] = useState(false);
+
+  const handleChange = (
+    event: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>
+  ) => {
+    const filterText = event.target.value;
+    setTopicFiltered(filterText);
+  };
 
   return (
     <div className="flex justify-between gap-[10px] p-[16px]">
@@ -34,6 +53,7 @@ const Action = () => {
           <OutlinedInput
             id="search-topic"
             placeholder="Search"
+            onChange={handleChange}
             startAdornment={
               <InputAdornment position="start">
                 <Search onClick={() => isMobile && setVisibleSearch(false)} />
@@ -44,7 +64,12 @@ const Action = () => {
       )}
       {!(visibleSearch && isMobile) && (
         <div className="flex gap-[10px]">
-          <Community variantButton="text" textButton="Community" />
+          <Community
+            variantButton="text"
+            textButton="Community"
+            communityFiltered={communityFiltered}
+            setCommunityFiltered={setCommunityFiltered}
+          />
           <Button variant="contained" endIcon={<Add />}>
             Create
           </Button>

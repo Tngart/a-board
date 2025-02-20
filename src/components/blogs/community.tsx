@@ -4,25 +4,23 @@ import MenuItem from "@mui/material/MenuItem";
 import { Check, KeyboardArrowDown } from "@mui/icons-material";
 import { Backdrop, Button, ButtonProps, Typography } from "@mui/material";
 import { useState } from "react";
-
-const options = [
-  "History",
-  "Food",
-  "Pets",
-  "Health",
-  "Fashion",
-  "Exercise",
-  "Others",
-];
+import { EnumToOptions } from "@/app/helpers";
+import { CommunityEnum } from "@/app/enum";
 
 interface CommunityProps {
+  communityFiltered: CommunityEnum[];
   variantButton: ButtonProps["variant"];
   textButton: string;
+  setCommunityFiltered: (filtered: CommunityEnum[]) => void;
 }
 
-const Community: React.FC<CommunityProps> = ({ variantButton, textButton }) => {
+const Community: React.FC<CommunityProps> = ({
+  variantButton,
+  textButton,
+  communityFiltered,
+  setCommunityFiltered,
+}) => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
-  const [selectedList, setSelectedList] = useState<string[]>([]);
   const open = Boolean(anchorEl);
 
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
@@ -31,13 +29,15 @@ const Community: React.FC<CommunityProps> = ({ variantButton, textButton }) => {
   const handleClose = () => {
     setAnchorEl(null);
   };
-  const handleSelectCommunity = (item: string) => {
-    if (selectedList.includes(item)) {
-      setSelectedList(selectedList.filter((i) => i !== item));
+  const handleSelectCommunity = (selected: CommunityEnum) => {
+    if (communityFiltered.includes(selected)) {
+      setCommunityFiltered(
+        communityFiltered.filter((item) => item !== selected)
+      );
       return;
     }
 
-    setSelectedList([...selectedList, item]);
+    setCommunityFiltered([...communityFiltered, selected]);
   };
 
   return (
@@ -74,15 +74,17 @@ const Community: React.FC<CommunityProps> = ({ variantButton, textButton }) => {
           horizontal: "right",
         }}
       >
-        {options.map((option) => (
+        {EnumToOptions(CommunityEnum).map((option) => (
           <MenuItem
-            key={option}
-            selected={selectedList.includes(option)}
-            onClick={handleSelectCommunity.bind(this, option)}
+            key={option.value}
+            selected={communityFiltered.includes(option.value)}
+            onClick={handleSelectCommunity.bind(this, option.value)}
           >
             <div className="flex justify-between w-full">
-              <Typography>{option}</Typography>
-              {selectedList.includes(option) && <Check sx={{ fontSize: 20 }} />}
+              <Typography>{option.label}</Typography>
+              {communityFiltered.includes(option.value) && (
+                <Check sx={{ fontSize: 20 }} />
+              )}
             </div>
           </MenuItem>
         ))}

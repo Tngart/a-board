@@ -1,13 +1,13 @@
 import List from "@mui/material/List";
 import Divider from "@mui/material/Divider";
 import { FC, Fragment } from "react";
-import PostItem from "@/components/post-item";
-import { MessageProps } from "../types";
+import PostItem from "@/components/blogs/post-item";
+import { MessageProps } from "../../app/types";
 
 interface IProps {
   posts: MessageProps[];
 }
-const AlignItemsList: FC<IProps> = ({ posts }) => {
+const PostList: FC<IProps> = ({ posts }) => {
   return (
     <div className="p-[16px]">
       <List
@@ -24,4 +24,4 @@ const AlignItemsList: FC<IProps> = ({ posts }) => {
   );
 };
 
-export default AlignItemsList;
+export default PostList;
