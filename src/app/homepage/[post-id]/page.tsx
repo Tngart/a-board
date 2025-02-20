@@ -72,7 +72,9 @@ const PostDetailPage = () => {
               >
                 Cancel
               </Button>
-              <Button variant="contained">Post</Button>
+              <Button variant="contained" color="success">
+                Post
+              </Button>
             </div>
           </>
         ) : (

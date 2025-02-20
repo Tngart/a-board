@@ -30,7 +30,7 @@ const ActionDialog: FC<IProps> = ({ currentPost, open, title, setOpen }) => {
     <Dialog
       open={open}
       onClose={handleClose}
-      aria-labelledby="create-post"
+      aria-labelledby="action-post"
       fullWidth
     >
       <IconButton
@@ -45,7 +45,7 @@ const ActionDialog: FC<IProps> = ({ currentPost, open, title, setOpen }) => {
       >
         <Close />
       </IconButton>
-      <DialogTitle id="create-post">{title}</DialogTitle>
+      <DialogTitle id="action-post">{title}</DialogTitle>
       <DialogContent>
         <Community
           communitySelected={communitySelected}
@@ -77,8 +77,10 @@ const ActionDialog: FC<IProps> = ({ currentPost, open, title, setOpen }) => {
           <Button
             onClick={handleClose}
             variant="contained"
+            color="success"
             autoFocus
             sx={{ width: { xs: "100%", md: "auto" } }}
+            type="submit"
           >
             Post
           </Button>

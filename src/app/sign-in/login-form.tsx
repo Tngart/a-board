@@ -51,6 +51,7 @@ const LoginForm: FC<IProps> = ({ loading, onSubmit }) => {
               disabled={!isValid}
               loading={loading}
               type="submit"
+              color="success"
             >
               Sign in
             </Button>

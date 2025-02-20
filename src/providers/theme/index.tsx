@@ -110,10 +110,6 @@ const theme = createTheme({
             background: "transparent",
           },
         },
-        contained: {
-          background: "rgba(73, 165, 105, 1)",
-          color: "rgba(255, 255, 255, 1)",
-        },
         outlined: {
           background: "rgba(255, 255, 255, 1)",
           borderColor: "rgba(73, 165, 105, 1)",
@@ -211,6 +207,7 @@ const theme = createTheme({
     MuiDialogContent: {
       styleOverrides: {
         root: {
+          fontSize: "14px",
           padding: "0px 20px",
           gap: "4px",
           display: "flex",

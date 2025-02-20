@@ -38,7 +38,7 @@ const Action: FC<IProps> = ({
   };
 
   return (
-    <div className="flex justify-between gap-[10px] p-[16px] mt-4">
+    <div className="flex justify-between gap-[10px] p-[16px] mt-8">
       {!visibleSearch && isMobile ? (
         <div className="ml-1.5">
           <IconButton
@@ -75,6 +75,7 @@ const Action: FC<IProps> = ({
           />
           <Button
             variant="contained"
+            color="success"
             endIcon={<Add />}
             onClick={() => setOpenDialog(true)}
           >

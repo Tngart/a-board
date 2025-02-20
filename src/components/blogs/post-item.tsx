@@ -16,6 +16,7 @@ import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
 import { FiEdit3, FiTrash2 } from "react-icons/fi";
 import ActionDialog from "../dialog/action-dialog";
+import DeleteDialog from "../dialog/delete-dialog";
 interface IProps {
   post: PostResponse;
   topicFiltered?: string;
@@ -36,6 +37,7 @@ const PostItem: FC<IProps> = ({
     post;
 
   const [openEditDialog, setOpenEditDialog] = useState(false);
+  const [openDeleteDialog, setOpenDeleteDialog] = useState(false);
 
   return (
     <>
@@ -53,6 +55,7 @@ const PostItem: FC<IProps> = ({
           <div hidden={!isEditable}>
             <IconButton
               onClick={() => setOpenEditDialog(true)}
+              color="primary"
               sx={{
                 color: (theme) => theme.palette.primary.main,
                 fontSize: "16px",
@@ -61,7 +64,8 @@ const PostItem: FC<IProps> = ({
               <FiEdit3 color={theme.palette.primary.main} />
             </IconButton>
             <IconButton
-              onClick={() => setOpenEditDialog(true)}
+              onClick={() => setOpenDeleteDialog(true)}
+              color="primary"
               sx={{
                 color: (theme) => theme.palette.primary.main,
                 fontSize: "16px",
@@ -135,6 +139,11 @@ const PostItem: FC<IProps> = ({
         setOpen={setOpenEditDialog}
         title={"Edit Post"}
         currentPost={post}
+      />
+      <DeleteDialog
+        id={_id}
+        open={openDeleteDialog}
+        setOpen={setOpenDeleteDialog}
       />
     </>
   );
