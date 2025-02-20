@@ -1,13 +1,10 @@
 "use client";
 import * as PostServices from "@/services/posts";
 import { PostResponse } from "@/app/types";
-import CommentList from "@/components/blogs/comments";
-import PostItem from "@/components/blogs/post-item";
 import React, { useCallback, useEffect, useState } from "react";
 import Alert from "@/components/alert";
 import { handleError } from "@/providers/service";
-import AddComment from "@/components/blogs/add-comment";
-import BackButton from "@/components/back-button";
+import PostDetail from "./post-detail";
 
 const PostDetailPage = ({
   params: { postId },
@@ -34,14 +31,7 @@ const PostDetailPage = ({
     FetchPost();
   }, [FetchPost]);
 
-  return (
-    <>
-      <BackButton />
-      <PostItem post={post} isPostDetail />
-      <AddComment />
-      <CommentList comments={post?.comments} />
-    </>
-  );
+  return <PostDetail post={post} />;
 };
 
 export default PostDetailPage;
