@@ -20,3 +20,24 @@ export interface Comments {
   message: string;
   updatedAt: string;
 }
+
+export interface PostPostRequest {
+  community: CommunityEnum;
+  description: string;
+  topic: string;
+}
+
+export interface PatchPostRequest {
+  community?: CommunityEnum;
+  description?: string;
+  topic?: string;
+}
+
+export interface UserInfo {
+  _id: string;
+  username: string;
+}
+
+export interface PatchCommentMessageRequest {
+  message: string;
+}
