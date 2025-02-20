@@ -3,9 +3,9 @@
 import * as PostServices from "@/services/posts";
 import ActionAndPostList from "@/components/blogs";
 import Alert from "@/components/alert";
-import { PostResponse } from "../types";
-import { useEffect, useState } from "react";
 import { handleError } from "@/providers/service";
+import { PostResponse } from "@/app/types";
+import { useEffect, useState } from "react";
 
 const HomePage = () => {
   const [postList, setPostList] = useState<PostResponse[]>([]);
