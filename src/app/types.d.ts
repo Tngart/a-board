@@ -16,8 +16,8 @@ export interface ListData {
 }
 
 export interface Comments {
-  username: string;
   message: string;
+  updatedBy: string;
   updatedAt: string;
 }
 
