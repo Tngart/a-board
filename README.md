@@ -52,6 +52,7 @@ NEXT_PUBLIC_API_URL="http://localhost:3000"
   ├── store/                 # State Management With Zustand
   ├── theme/                 # MUI Theme Configuration
   ├── types/                 # TypeScript Types
+  ├── middleware             # Manage Router at path '/'
 
 ```markdown
 ## 🔗 API Calls
@@ -70,3 +71,5 @@ NEXT_PUBLIC_API_URL="http://localhost:3000"
 - `POST /users/register` → Register
 - `GET /users/me` → Get user info
 ````
+
+Please provide feedback if possible.
