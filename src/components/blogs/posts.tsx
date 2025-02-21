@@ -3,7 +3,7 @@ import List from "@mui/material/List";
 import Divider from "@mui/material/Divider";
 import { FC, Fragment } from "react";
 import PostItem from "@/components/blogs/post-item";
-import { PostDataResponse } from "../../app/types/posts";
+import { PostDataResponse } from "../../types/posts";
 
 interface IProps {
   posts: PostDataResponse[];

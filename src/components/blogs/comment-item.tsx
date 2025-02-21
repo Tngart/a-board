@@ -1,7 +1,7 @@
 "use client";
 
 import { FC } from "react";
-import { Comments } from "@/app/types/posts";
+import { Comments } from "@/types/posts";
 import ListItem from "@mui/material/ListItem";
 import ListItemText from "@mui/material/ListItemText";
 import ListItemAvatar from "@mui/material/ListItemAvatar";

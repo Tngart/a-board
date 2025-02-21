@@ -1,7 +1,7 @@
 "use client";
 
 import { FC } from "react";
-import { PostDataResponse } from "@/app/types/posts";
+import { PostDataResponse } from "@/types/posts";
 import ListItem from "@mui/material/ListItem";
 import ListItemText from "@mui/material/ListItemText";
 import ListItemAvatar from "@mui/material/ListItemAvatar";

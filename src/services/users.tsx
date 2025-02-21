@@ -4,7 +4,7 @@ import {
   GetMeResponseServiceType,
   SignInResponseServiceType,
   SignUpResponseServiceType,
-} from "@/app/types/users";
+} from "@/types/users";
 import { endpoint, headers } from "@/providers/service";
 import axios from "axios";
 

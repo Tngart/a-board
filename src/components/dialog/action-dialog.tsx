@@ -11,7 +11,7 @@ import Input from "../input";
 import { Box, IconButton } from "@mui/material";
 import { Close } from "@mui/icons-material";
 import { FC, useEffect } from "react";
-import { PostDataResponse } from "@/app/types/posts";
+import { PostDataResponse } from "@/types/posts";
 import { SetToLabel } from "@/app/helpers";
 
 interface IProps {

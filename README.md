@@ -1,36 +1,72 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# A-Board (Q&A Forum)
 
-## Getting Started
+A-Board is a question-and-answer forum built with **Next.js 15** and powered by **Bun**.  
+Users can create posts, comment, and manage their own discussions.
 
-First, run the development server:
+## 🛠 Tech Stack
 
-```bash
+- **Frontend:** Next.js 15, TypeScript
+- **State Management:** React Context
+- **HTTP Client:** Axios
+- **Package Manager:** Bun / npm
+
+## 🔧 Installation
+
+Clone the repository:
+
+````sh
+git clone https://github.com/Tngart/a-board.git
+cd a-board
+
+# Using npm
+npm install
+
+# OR using Bun
+bun install
+
+```markdown
+## 🚀 Running the Project
+
+### Start the development server:
+```sh
+# Using npm
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
+
+# OR using Bun
 bun dev
-```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+NEXT_PUBLIC_API_URL="http://localhost:3000"
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+/src
+  ├── app
+  │   ├── homepage/          # Homepage UI
+  │   │   ├── [id]/          # Post Detail Pages
+  │   │   ├── our-blog/      # Own User Blog
+  │   │   ├── sign-in/       # Login Page
+  ├── components/            # Reusable Components
+  │   ├── app-bar/           # Navigation Bar
+  │   ├── blogs/             # Blog Post Components
+  │   ├── dialog/            # Action(Create Update)Dialog, Delete Dialogs
+  ├── providers/             # Global Context Providers
+  ├── services/              # API Calls (Axios)
+  ├── store/                 # State Management With Zustand
+  ├── theme/                 # MUI Theme Configuration
+  ├── types/                 # TypeScript Types
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```markdown
+## 🔗 API Calls
 
-## Learn More
+### Posts
+- `GET /posts` → Fetch all posts
+- `GET /posts/my/post` → Fetch user's posts
+- `GET /posts/{id}` → Fetch post details
+- `POST /posts` → Create a new post
+- `PATCH /posts/{id}` → Update a post
+- `PATCH /posts/{id}/message` → Update post comment
+- `DELETE /posts/{id}` → Delete a post
 
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+### Users
+- `POST /users/sign-in` → Login
+- `POST /users/register` → Register
+- `GET /users/me` → Get user info
+````

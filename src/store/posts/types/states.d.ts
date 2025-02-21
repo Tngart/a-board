@@ -1,4 +1,4 @@
-import { PostDataResponse } from "@/app/types/posts";
+import { PostDataResponse } from "@/types/posts";
 
 export interface PostState {
   postList?: PostDataResponse[];

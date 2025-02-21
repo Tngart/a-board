@@ -1,4 +1,4 @@
-import { ListData } from "./types/posts";
+import { ListData } from "../types/posts";
 
 export const SetToLabel = (message?: string) => {
   if (!message) return "";

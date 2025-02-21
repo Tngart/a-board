@@ -4,7 +4,7 @@ import React, { FC, useEffect, useMemo, useState } from "react";
 import Action from "../../components/blogs/action";
 import PostList from "../../components/blogs/posts";
 import { CommunityEnum } from "@/app/enum";
-import { PostDataResponse } from "@/app/types/posts";
+import { PostDataResponse } from "@/types/posts";
 import EmptyState from "../empty";
 import EditDialog from "../dialog/action-dialog";
 import CreateDialog from "../dialog/action-dialog";

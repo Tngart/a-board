@@ -10,7 +10,7 @@ import {
   PostPostRequest,
   UpdateCommentMessageServiceType,
   UpdatePostServiceType,
-} from "@/app/types/posts";
+} from "@/types/posts";
 import { endpoint, headers } from "@/providers/service";
 import axios from "axios";
 

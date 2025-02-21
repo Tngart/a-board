@@ -2,7 +2,7 @@ import {
   PatchCommentMessageRequest,
   PostDataResponse,
   PostPostRequest,
-} from "@/app/types/posts";
+} from "@/types/posts";
 import { PostState } from "./states";
 
 export interface PostStore extends PostState {
