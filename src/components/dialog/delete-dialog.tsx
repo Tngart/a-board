@@ -5,23 +5,23 @@ import DialogContent from "@mui/material/DialogContent";
 import DialogTitle from "@mui/material/DialogTitle";
 import { Box } from "@mui/material";
 import { FC } from "react";
+import { usePostStore } from "@/store/posts";
 
-interface IProps {
-  id: string;
-  open: boolean;
-  setOpen: (trigger: boolean) => void;
-}
-const DeleteDialog: FC<IProps> = ({ id, open, setOpen }) => {
-  const handleClose = () => {
-    setOpen(false);
-  };
+const DeleteDialog: FC = () => {
+  const { currentDeleteId, SetOpenDeleteDialog, DeletePost } = usePostStore();
+
   const handleDelete = () => {
-    console.log({ id });
+    if (!currentDeleteId) return;
+    DeletePost(currentDeleteId);
+    handleClose();
+  };
+  const handleClose = () => {
+    SetOpenDeleteDialog(undefined);
   };
 
   return (
     <Dialog
-      open={open}
+      open={!!currentDeleteId}
       onClose={handleClose}
       aria-labelledby="delete-post"
       fullWidth

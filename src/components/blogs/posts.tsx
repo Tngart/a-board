@@ -1,15 +1,16 @@
+"use client";
 import List from "@mui/material/List";
 import Divider from "@mui/material/Divider";
 import { FC, Fragment } from "react";
 import PostItem from "@/components/blogs/post-item";
-import { PostResponse } from "../../app/types";
+import { PostDataResponse } from "../../app/types/posts";
 
 interface IProps {
-  posts: PostResponse[];
-  topicFiltered: string;
+  posts: PostDataResponse[];
+  titleFiltered: string;
   isEditable?: boolean;
 }
-const PostList: FC<IProps> = ({ posts, topicFiltered }) => {
+const PostList: FC<IProps> = ({ isEditable, posts, titleFiltered }) => {
   return (
     <div className="p-[16px]">
       <List
@@ -17,7 +18,11 @@ const PostList: FC<IProps> = ({ posts, topicFiltered }) => {
       >
         {posts.map((post, index) => (
           <Fragment key={index}>
-            <PostItem post={post} topicFiltered={topicFiltered} isEditable />
+            <PostItem
+              post={post}
+              titleFiltered={titleFiltered}
+              isEditable={isEditable}
+            />
             {index < posts.length - 1 && <Divider component="li" />}
           </Fragment>
         ))}

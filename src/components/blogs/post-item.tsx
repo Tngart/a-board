@@ -1,7 +1,7 @@
 "use client";
 
-import { FC, useState } from "react";
-import { PostResponse } from "@/app/types";
+import { FC } from "react";
+import { PostDataResponse } from "@/app/types/posts";
 import ListItem from "@mui/material/ListItem";
 import ListItemText from "@mui/material/ListItemText";
 import ListItemAvatar from "@mui/material/ListItemAvatar";
@@ -15,11 +15,10 @@ import Link from "next/link";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
 import { FiEdit3, FiTrash2 } from "react-icons/fi";
-import ActionDialog from "../dialog/action-dialog";
-import DeleteDialog from "../dialog/delete-dialog";
+import { usePostStore } from "@/store/posts";
 interface IProps {
-  post: PostResponse;
-  topicFiltered?: string;
+  post?: PostDataResponse;
+  titleFiltered?: string;
   isPostDetail?: boolean;
   isEditable?: boolean;
 }
@@ -29,32 +28,40 @@ dayjs.extend(relativeTime);
 const PostItem: FC<IProps> = ({
   isPostDetail,
   post,
-  topicFiltered,
+  titleFiltered,
   isEditable,
 }) => {
   const theme = useTheme();
-  const { _id, comments, community, description, topic, userInfo, updatedAt } =
-    post;
+  const { SetOpenDeleteDialog, SetOpenUpdateDialog } = usePostStore();
+  const { _id, comments, community, description, title, userInfo, createdAt } =
+    post || {};
 
-  const [openEditDialog, setOpenEditDialog] = useState(false);
-  const [openDeleteDialog, setOpenDeleteDialog] = useState(false);
+  const handleOpenEditDialog = () => {
+    if (!post) return;
+    SetOpenUpdateDialog(post);
+  };
+
+  const handleOpenDeleteDialog = () => {
+    if (!_id) return;
+    SetOpenDeleteDialog(_id);
+  };
 
   return (
     <>
       <ListItem sx={{ padding: "20px", display: "block", width: "100%" }}>
         <ListItemAvatar className="flex justify-between">
           <div className="flex items-center gap-2 text-gray-500">
-            <Avatar alt={userInfo._id} src={"/avatar.svg"} />
-            <Typography variant="subtitle1">{userInfo.username}</Typography>
+            <Avatar alt={userInfo?._id} src={"/avatar.svg"} />
+            <Typography variant="subtitle1">{userInfo?.username}</Typography>
             {isPostDetail && (
               <Typography variant="subtitle2">
-                {dayjs(updatedAt).fromNow()}
+                {dayjs(createdAt).fromNow()}
               </Typography>
             )}
           </div>
           <div hidden={!isEditable}>
             <IconButton
-              onClick={() => setOpenEditDialog(true)}
+              onClick={handleOpenEditDialog}
               color="primary"
               sx={{
                 color: (theme) => theme.palette.primary.main,
@@ -64,7 +71,7 @@ const PostItem: FC<IProps> = ({
               <FiEdit3 color={theme.palette.primary.main} />
             </IconButton>
             <IconButton
-              onClick={() => setOpenDeleteDialog(true)}
+              onClick={handleOpenDeleteDialog}
               color="primary"
               sx={{
                 color: (theme) => theme.palette.primary.main,
@@ -84,12 +91,12 @@ const PostItem: FC<IProps> = ({
           primary={
             isPostDetail ? (
               <div className="mb-4">
-                <Typography variant="h3">{topic}</Typography>
+                <Typography variant="h3">{title}</Typography>
               </div>
             ) : (
               <Link href={`/homepage/${_id}`}>
                 <Typography variant="h6">
-                  {highlightText(topic, topicFiltered)}
+                  {highlightText(title, titleFiltered)}
                 </Typography>
               </Link>
             )
@@ -134,17 +141,6 @@ const PostItem: FC<IProps> = ({
           </Link>
         )}
       </ListItem>
-      <ActionDialog
-        open={openEditDialog}
-        setOpen={setOpenEditDialog}
-        title={"Edit Post"}
-        currentPost={post}
-      />
-      <DeleteDialog
-        id={_id}
-        open={openDeleteDialog}
-        setOpen={setOpenDeleteDialog}
-      />
     </>
   );
 };

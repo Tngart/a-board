@@ -1,11 +1,14 @@
 "use client";
 
-import { LocalStorage } from "@/providers/local-storage";
+import {
+  GetMeResponseServiceType,
+  SignInResponseServiceType,
+  SignUpResponseServiceType,
+} from "@/app/types/users";
 import { endpoint, headers } from "@/providers/service";
 import axios from "axios";
 
-export const Login = (username: string) => {
-  const data = { username };
+export const Login: SignInResponseServiceType = (data) => {
   const response = axios({
     url: endpoint("/users/sign-in"),
     method: "POST",
@@ -14,9 +17,8 @@ export const Login = (username: string) => {
   return response;
 };
 
-export const Register = async (username: string) => {
-  const data = { username };
-  const response = await axios({
+export const Register: SignUpResponseServiceType = (data) => {
+  const response = axios({
     url: endpoint("/users/register"),
     method: "POST",
     data,
@@ -24,8 +26,8 @@ export const Register = async (username: string) => {
   return response;
 };
 
-export const GetMe = async () => {
-  const response = await axios({
+export const GetMe: GetMeResponseServiceType = () => {
+  const response = axios({
     url: endpoint("/users/me"),
     method: "GET",
     ...headers(),

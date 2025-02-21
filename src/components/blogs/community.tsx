@@ -1,3 +1,5 @@
+"use client";
+
 import * as React from "react";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
@@ -15,6 +17,7 @@ import { CommunityEnum } from "@/app/enum";
 
 interface CommunityProps {
   communitySelected: CommunityEnum[];
+  isMultiple?: boolean;
   menuPosition: "left" | "right";
   menuWidth: { xs: number; md: number };
   variantButton: ButtonProps["variant"];
@@ -23,11 +26,12 @@ interface CommunityProps {
 }
 
 const Community: React.FC<CommunityProps> = ({
-  variantButton,
+  communitySelected,
+  isMultiple,
   menuPosition,
   menuWidth,
   textButton,
-  communitySelected,
+  variantButton,
   setCommunitySelected,
 }) => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
@@ -40,6 +44,10 @@ const Community: React.FC<CommunityProps> = ({
     setAnchorEl(null);
   };
   const handleSelectCommunity = (selected: CommunityEnum) => {
+    if (!isMultiple) {
+      setCommunitySelected([selected]);
+      return;
+    }
     if (communitySelected.includes(selected)) {
       setCommunitySelected(
         communitySelected.filter((item) => item !== selected)

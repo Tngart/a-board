@@ -253,6 +253,13 @@ const theme = createTheme({
         },
       },
     },
+    MuiDivider: {
+      styleOverrides: {
+        root: {
+          padding: 0,
+        },
+      },
+    },
     MuiCssBaseline: {
       styleOverrides: (theme) => ({
         ":root": {

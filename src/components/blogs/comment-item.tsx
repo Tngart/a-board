@@ -1,7 +1,7 @@
 "use client";
 
 import { FC } from "react";
-import { Comments } from "@/app/types";
+import { Comments } from "@/app/types/posts";
 import ListItem from "@mui/material/ListItem";
 import ListItemText from "@mui/material/ListItemText";
 import ListItemAvatar from "@mui/material/ListItemAvatar";
@@ -25,7 +25,7 @@ const CommentItem: FC<IProps> = ({ comment, index }) => {
         </ListItemAvatar>
         <div className="grid mt-2 gap-2">
           <div className="flex gap-2 items-baseline">
-            <Typography variant="subtitle1">{comment.username}</Typography>
+            <Typography variant="subtitle1">{comment.updatedBy}</Typography>
             <Typography variant="subtitle2">
               {dayjs(comment.updatedAt).fromNow()}
             </Typography>
