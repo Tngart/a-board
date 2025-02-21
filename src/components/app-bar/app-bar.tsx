@@ -10,9 +10,10 @@ import {
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import Link from "next/link";
-import { FC, useState } from "react";
-import { LocalStorage } from "@/providers/local-storage";
+import { FC, useEffect, useState } from "react";
 import UserInfoMenu from "../logout";
+import { LocalStorage } from "@/providers/local-storage";
+import { useUserStore } from "@/store/users";
 
 interface AppBarProps {
   isClosing: boolean;
@@ -27,6 +28,8 @@ const AppBarComponent: FC<AppBarProps> = ({
   const router = useRouter();
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
 
+  const { me, Me } = useUserStore();
+
   const handleClickAvatar = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
   };
@@ -36,6 +39,11 @@ const AppBarComponent: FC<AppBarProps> = ({
       setMobileOpen(!mobileOpen);
     }
   };
+
+  useEffect(() => {
+    if (me) return;
+    Me();
+  }, [Me, me]);
 
   return (
     <MuiAppBar>

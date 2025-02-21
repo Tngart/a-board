@@ -44,8 +44,6 @@ const Community: React.FC<CommunityProps> = ({
     setAnchorEl(null);
   };
   const handleSelectCommunity = (selected: CommunityEnum) => {
-    console.log({ communitySelected });
-
     if (!isMultiple) {
       setCommunitySelected([selected]);
       return;

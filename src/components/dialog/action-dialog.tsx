@@ -10,13 +10,13 @@ import { CommunityEnum } from "@/app/enum";
 import Input from "../input";
 import { Box, IconButton } from "@mui/material";
 import { Close } from "@mui/icons-material";
-import { FC } from "react";
-import { PostResponse } from "@/app/types";
+import { FC, useEffect } from "react";
+import { PostDataResponse } from "@/app/types/posts";
 import { SetToLabel } from "@/app/helpers";
 
 interface IProps {
   communitySelected: CommunityEnum[];
-  currentPost?: PostResponse;
+  currentPost?: PostDataResponse;
   methods: any;
   open: boolean;
   onClose?: () => void;
@@ -37,18 +37,31 @@ const ActionDialog: FC<IProps> = ({
   const handleOnSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     methods.handleSubmit(onSubmit)();
+    methods.reset();
   };
+
+  const handleClose = () => {
+    methods.reset();
+    onClose?.();
+  };
+
+  useEffect(() => {
+    if (currentPost) {
+      methods.setValue("title", currentPost.title);
+      methods.setValue("description", currentPost.description);
+    }
+  }, [currentPost, methods]);
 
   return (
     <Dialog
       open={open}
-      onClose={onClose}
+      onClose={handleClose}
       aria-labelledby="action-post"
       fullWidth
     >
       <form onSubmit={handleOnSubmit}>
         <IconButton
-          onClick={onClose}
+          onClick={handleClose}
           sx={{
             position: "absolute",
             top: 2,
@@ -73,15 +86,9 @@ const ActionDialog: FC<IProps> = ({
                 : "Choose a community"
             }
           />
-          <Input
-            defaultValue={currentPost?.title}
-            control={methods.control}
-            name={"title"}
-            placeholder="Title"
-          />
+          <Input control={methods.control} name={"title"} placeholder="Title" />
           <Input
             control={methods.control}
-            defaultValue={currentPost?.description}
             multiline
             name={"description"}
             placeholder="What's on your mind..."
@@ -97,7 +104,7 @@ const ActionDialog: FC<IProps> = ({
             sx={{ width: "100%" }}
           >
             <Button
-              onClick={onClose}
+              onClick={handleClose}
               variant="outlined"
               sx={{ width: { xs: "100%", md: "auto" } }}
             >

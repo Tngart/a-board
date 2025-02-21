@@ -4,43 +4,42 @@ import React, { FC, useEffect, useMemo, useState } from "react";
 import Action from "../../components/blogs/action";
 import PostList from "../../components/blogs/posts";
 import { CommunityEnum } from "@/app/enum";
-import { PostResponse } from "@/app/types";
+import { PostDataResponse } from "@/app/types/posts";
 import EmptyState from "../empty";
 import EditDialog from "../dialog/action-dialog";
 import CreateDialog from "../dialog/action-dialog";
 import DeleteDialog from "../dialog/delete-dialog";
+import { useForm } from "react-hook-form";
+import { usePostStore } from "@/store/posts";
 
 interface IProps {
-  currentEditPost?: PostResponse;
-  currentDeleteId?: string;
-  openCreateDialog: boolean;
-  setCurrentEditPost?: (post?: PostResponse) => void;
-  setCurrentDeleteId?: (id?: string) => void;
-  setOpenCreateDialog: (trigger: boolean) => void;
   isEditable?: boolean;
-  postList: PostResponse[];
-  methods: any;
-  loading: boolean;
-  onCreate: (data: { title: string; description: string }) => void;
-  onEdit?: (data: { title: string; description: string }) => void;
-  onDelete?: () => void;
+  postList?: PostDataResponse[];
 }
 
-const ActionAndPostList: FC<IProps> = ({
-  currentEditPost,
-  currentDeleteId,
-  openCreateDialog,
-  postList,
-  isEditable,
-  loading,
-  methods,
-  onCreate,
-  onEdit,
-  onDelete,
-  setOpenCreateDialog,
-  setCurrentEditPost,
-  setCurrentDeleteId,
-}) => {
+const ActionAndPostList: FC<IProps> = ({ postList, isEditable }) => {
+  const {
+    currentEditPost,
+    openCreateDialog,
+    postLoading,
+    CreatePost,
+    SetOpenCreateDialog,
+    SetOpenUpdateDialog,
+    UpdatePost,
+  } = usePostStore();
+  const methods = useForm<{
+    title: string;
+    description: string;
+    community: CommunityEnum[];
+  }>({
+    mode: "all",
+    defaultValues: {
+      title: currentEditPost?.title ?? "",
+      description: currentEditPost?.description ?? "",
+      community: [currentEditPost?.community],
+    },
+  });
+
   const [communitySelectedFilter, setCommunitySelectedFilter] = useState<
     CommunityEnum[]
   >([]);
@@ -49,11 +48,31 @@ const ActionAndPostList: FC<IProps> = ({
   >([]);
   const [titleFiltered, setTitleFiltered] = useState<string>("");
 
+  const handleCreate = (data: { title: string; description: string }) => {
+    CreatePost(
+      {
+        title: data.title,
+        description: data.description,
+        community: communitySelectedDialog[0],
+      },
+      isEditable
+    );
+  };
+
+  const handleUpdate = (data: { title: string; description: string }) => {
+    if (!currentEditPost) return;
+    UpdatePost(currentEditPost._id, {
+      title: data.title,
+      description: data.description,
+      community: communitySelectedDialog[0],
+    });
+  };
+
   const filterTwoAlphabet = titleFiltered.length >= 2 ? titleFiltered : "";
 
   const postListFiltered = useMemo(
     () =>
-      postList.filter((post) => {
+      postList?.filter((post) => {
         const matchesCommunity =
           !communitySelectedFilter.length ||
           communitySelectedFilter.includes(post.community);
@@ -67,10 +86,6 @@ const ActionAndPostList: FC<IProps> = ({
   );
 
   useEffect(() => {
-    methods.setValue("community", communitySelectedDialog);
-  }, [communitySelectedDialog, methods, currentEditPost]);
-
-  useEffect(() => {
     if (currentEditPost)
       setCommunitySelectedDialog([currentEditPost.community]);
   }, [currentEditPost]);
@@ -79,18 +94,16 @@ const ActionAndPostList: FC<IProps> = ({
     <div className="w-[798px]">
       <Action
         communitySelected={communitySelectedFilter}
-        loading={loading}
-        setOpenCreateDialog={setOpenCreateDialog}
+        loading={postLoading}
+        setOpenCreateDialog={SetOpenCreateDialog}
         setCommunitySelected={setCommunitySelectedFilter}
         setTitleFiltered={setTitleFiltered}
       />
-      {postListFiltered.length ? (
+      {postListFiltered?.length ? (
         <PostList
           posts={postListFiltered}
           titleFiltered={filterTwoAlphabet}
           isEditable={isEditable}
-          setCurrentDeleteId={setCurrentDeleteId}
-          setCurrentEditPost={setCurrentEditPost}
         />
       ) : (
         <EmptyState />
@@ -98,8 +111,8 @@ const ActionAndPostList: FC<IProps> = ({
       <CreateDialog
         communitySelected={communitySelectedDialog}
         open={!!openCreateDialog}
-        onClose={setOpenCreateDialog.bind(null, false)}
-        onSubmit={onCreate}
+        onClose={SetOpenCreateDialog.bind(null, false)}
+        onSubmit={handleCreate}
         methods={methods}
         setCommunitySelected={setCommunitySelectedDialog}
         dialogTitle={"Create Post"}
@@ -108,17 +121,13 @@ const ActionAndPostList: FC<IProps> = ({
         currentPost={currentEditPost}
         communitySelected={communitySelectedDialog}
         open={!!currentEditPost}
-        onClose={setCurrentEditPost?.bind(null, undefined)}
-        onSubmit={onEdit}
+        onClose={SetOpenUpdateDialog.bind(null, undefined)}
+        onSubmit={handleUpdate}
         methods={methods}
         setCommunitySelected={setCommunitySelectedDialog}
         dialogTitle={"Edit Post"}
       />
-      <DeleteDialog
-        id={currentDeleteId}
-        setOpen={setCurrentDeleteId?.bind(null, undefined)}
-        onDelete={onDelete}
-      />
+      <DeleteDialog />
     </div>
   );
 };

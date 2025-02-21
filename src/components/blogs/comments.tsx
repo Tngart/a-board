@@ -1,7 +1,7 @@
 "use client";
 import List from "@mui/material/List";
 import { FC, Fragment } from "react";
-import { Comments } from "../../app/types";
+import { Comments } from "../../app/types/posts";
 import CommentItem from "./comment-item";
 
 interface IProps {

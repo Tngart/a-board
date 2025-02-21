@@ -1,7 +1,7 @@
 "use client";
 
 import { FC } from "react";
-import { PostResponse } from "@/app/types";
+import { PostDataResponse } from "@/app/types/posts";
 import ListItem from "@mui/material/ListItem";
 import ListItemText from "@mui/material/ListItemText";
 import ListItemAvatar from "@mui/material/ListItemAvatar";
@@ -15,13 +15,12 @@ import Link from "next/link";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
 import { FiEdit3, FiTrash2 } from "react-icons/fi";
+import { usePostStore } from "@/store/posts";
 interface IProps {
-  post?: PostResponse;
+  post?: PostDataResponse;
   titleFiltered?: string;
   isPostDetail?: boolean;
   isEditable?: boolean;
-  setCurrentDeleteId?: (id?: string) => void;
-  setCurrentEditPost?: (post?: PostResponse) => void;
 }
 
 dayjs.extend(relativeTime);
@@ -31,13 +30,21 @@ const PostItem: FC<IProps> = ({
   post,
   titleFiltered,
   isEditable,
-  setCurrentDeleteId,
-  setCurrentEditPost,
 }) => {
   const theme = useTheme();
-
-  const { _id, comments, community, description, title, userInfo, updatedAt } =
+  const { SetOpenDeleteDialog, SetOpenUpdateDialog } = usePostStore();
+  const { _id, comments, community, description, title, userInfo, createdAt } =
     post || {};
+
+  const handleOpenEditDialog = () => {
+    if (!post) return;
+    SetOpenUpdateDialog(post);
+  };
+
+  const handleOpenDeleteDialog = () => {
+    if (!_id) return;
+    SetOpenDeleteDialog(_id);
+  };
 
   return (
     <>
@@ -48,13 +55,13 @@ const PostItem: FC<IProps> = ({
             <Typography variant="subtitle1">{userInfo?.username}</Typography>
             {isPostDetail && (
               <Typography variant="subtitle2">
-                {dayjs(updatedAt).fromNow()}
+                {dayjs(createdAt).fromNow()}
               </Typography>
             )}
           </div>
           <div hidden={!isEditable}>
             <IconButton
-              onClick={() => setCurrentEditPost?.(post)}
+              onClick={handleOpenEditDialog}
               color="primary"
               sx={{
                 color: (theme) => theme.palette.primary.main,
@@ -64,7 +71,7 @@ const PostItem: FC<IProps> = ({
               <FiEdit3 color={theme.palette.primary.main} />
             </IconButton>
             <IconButton
-              onClick={() => setCurrentDeleteId?.(_id)}
+              onClick={handleOpenDeleteDialog}
               color="primary"
               sx={{
                 color: (theme) => theme.palette.primary.main,

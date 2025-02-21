@@ -1,14 +1,20 @@
 "use client";
 
 import {
+  CreatePostServiceType,
+  DeletePostServiceType,
+  FetchPostDetailServiceType,
+  FetchPostListServiceType,
   PatchCommentMessageRequest,
   PatchPostRequest,
   PostPostRequest,
-} from "@/app/types";
+  UpdateCommentMessageServiceType,
+  UpdatePostServiceType,
+} from "@/app/types/posts";
 import { endpoint, headers } from "@/providers/service";
 import axios from "axios";
 
-export const FetchPostList = () => {
+export const FetchPostList: FetchPostListServiceType = () => {
   const response = axios({
     url: endpoint("/posts"),
     method: "GET",
@@ -17,7 +23,7 @@ export const FetchPostList = () => {
   return response;
 };
 
-export const FetchMyPostList = () => {
+export const FetchMyPostList: FetchPostListServiceType = () => {
   const response = axios({
     url: endpoint("/posts/my/post"),
     method: "GET",
@@ -26,7 +32,7 @@ export const FetchMyPostList = () => {
   return response;
 };
 
-export const FetchPost = (id: string) => {
+export const FetchPost: FetchPostDetailServiceType = (id: string) => {
   const response = axios({
     url: endpoint(`/posts/${id}`),
     method: "GET",
@@ -35,8 +41,8 @@ export const FetchPost = (id: string) => {
   return response;
 };
 
-export const PostPost = async (data: PostPostRequest) => {
-  const response = await axios({
+export const PostPost: CreatePostServiceType = (data: PostPostRequest) => {
+  const response = axios({
     url: endpoint("/posts"),
     method: "POST",
     data,
@@ -45,8 +51,11 @@ export const PostPost = async (data: PostPostRequest) => {
   return response;
 };
 
-export const PatchPost = async (id: string, data: PatchPostRequest) => {
-  const response = await axios({
+export const PatchPost: UpdatePostServiceType = (
+  id: string,
+  data: PatchPostRequest
+) => {
+  const response = axios({
     url: endpoint(`/posts/${id}`),
     method: "PATCH",
     data,
@@ -55,7 +64,7 @@ export const PatchPost = async (id: string, data: PatchPostRequest) => {
   return response;
 };
 
-export const PatchMessage = async (
+export const PatchMessage: UpdateCommentMessageServiceType = async (
   id: string,
   data: PatchCommentMessageRequest
 ) => {
@@ -68,7 +77,7 @@ export const PatchMessage = async (
   return response;
 };
 
-export const DeletePost = async (id: string) => {
+export const DeletePost: DeletePostServiceType = async (id: string) => {
   const response = await axios({
     url: endpoint(`/posts/${id}`),
     method: "DELETE",

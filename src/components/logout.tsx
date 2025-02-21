@@ -1,4 +1,5 @@
 import { LocalStorage } from "@/providers/local-storage";
+import { useUserStore } from "@/store/users";
 import { Logout } from "@mui/icons-material";
 import { Divider, Typography } from "@mui/material";
 import Menu from "@mui/material/Menu";
@@ -11,6 +12,7 @@ interface UserInfoMenuProps {
 }
 
 const UserInfoMenu: FC<UserInfoMenuProps> = ({ anchorEl, setAnchorEl }) => {
+  const { SignOut } = useUserStore();
   const open = Boolean(anchorEl);
 
   const handleClose = () => {
@@ -18,9 +20,7 @@ const UserInfoMenu: FC<UserInfoMenuProps> = ({ anchorEl, setAnchorEl }) => {
   };
 
   const handleLogout = () => {
-    LocalStorage.setAccessToken("");
-    LocalStorage.setUserId("");
-    LocalStorage.setUsername("");
+    SignOut();
     setAnchorEl(null);
   };
 

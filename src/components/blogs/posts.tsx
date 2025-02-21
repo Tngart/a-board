@@ -3,22 +3,14 @@ import List from "@mui/material/List";
 import Divider from "@mui/material/Divider";
 import { FC, Fragment } from "react";
 import PostItem from "@/components/blogs/post-item";
-import { PostResponse } from "../../app/types";
+import { PostDataResponse } from "../../app/types/posts";
 
 interface IProps {
-  posts: PostResponse[];
+  posts: PostDataResponse[];
   titleFiltered: string;
   isEditable?: boolean;
-  setCurrentEditPost?: (post?: PostResponse) => void;
-  setCurrentDeleteId?: (id?: string) => void;
 }
-const PostList: FC<IProps> = ({
-  isEditable,
-  posts,
-  titleFiltered,
-  setCurrentDeleteId,
-  setCurrentEditPost,
-}) => {
+const PostList: FC<IProps> = ({ isEditable, posts, titleFiltered }) => {
   return (
     <div className="p-[16px]">
       <List
@@ -30,8 +22,6 @@ const PostList: FC<IProps> = ({
               post={post}
               titleFiltered={titleFiltered}
               isEditable={isEditable}
-              setCurrentDeleteId={setCurrentDeleteId}
-              setCurrentEditPost={setCurrentEditPost}
             />
             {index < posts.length - 1 && <Divider component="li" />}
           </Fragment>

@@ -22,14 +22,4 @@ export const LocalStorage = {
       localStorage.removeItem("username");
     }
   },
-  get userId() {
-    return localStorage.getItem("user-id");
-  },
-  setUserId(value?: string) {
-    if (value) {
-      localStorage.setItem("user-id", value);
-    } else {
-      localStorage.removeItem("user-id");
-    }
-  },
 };

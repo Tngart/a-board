@@ -1,20 +1,36 @@
 "use client";
 import Input from "@/components/input";
+import { usePostStore } from "@/store/posts";
 import { Box, Button } from "@mui/material";
 import { FC, useState } from "react";
+import { useForm } from "react-hook-form";
 
 interface AddCommentProps {
-  methods: any;
-  onSubmit: (data: { commentMessage: string }) => void;
-  loading: boolean;
+  postId: string;
 }
-const AddComment: FC<AddCommentProps> = ({ methods, loading, onSubmit }) => {
+const AddComment: FC<AddCommentProps> = ({ postId }) => {
+  const { postLoading, UpdateMessageInPost } = usePostStore();
+
   const [visibleAddComment, setVisibleAddComment] = useState<boolean>(false);
-  const { control, handleSubmit, watch } = methods;
+
+  const { control, handleSubmit, watch, reset } = useForm<{
+    commentMessage: string;
+  }>({
+    mode: "all",
+    defaultValues: { commentMessage: "" },
+  });
+
+  const handleAddComment = async (data: { commentMessage: string }) => {
+    const response = await UpdateMessageInPost(postId, {
+      commentMessage: data.commentMessage,
+    });
+    if (response?.done) setVisibleAddComment(false);
+    reset();
+  };
 
   const handleOnSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (onSubmit) handleSubmit(onSubmit)();
+    handleSubmit(handleAddComment)();
   };
 
   return (
@@ -33,14 +49,14 @@ const AddComment: FC<AddCommentProps> = ({ methods, loading, onSubmit }) => {
             />
             <div className="flex justify-end gap-[8px] my-[10px]">
               <Button
-                loading={loading}
+                loading={postLoading}
                 variant="outlined"
                 onClick={setVisibleAddComment.bind(this, false)}
               >
                 Cancel
               </Button>
               <Button
-                loading={loading}
+                loading={postLoading}
                 variant="contained"
                 color="success"
                 type="submit"
