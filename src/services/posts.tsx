@@ -28,9 +28,8 @@ export const FetchMyPostList = () => {
 
 export const FetchPost = (id: string) => {
   const response = axios({
-    url: endpoint("/posts/:id"),
+    url: endpoint(`/posts/${id}`),
     method: "GET",
-    params: { id },
     ...headers(),
   });
   return response;
@@ -38,7 +37,7 @@ export const FetchPost = (id: string) => {
 
 export const PostPost = async (data: PostPostRequest) => {
   const response = await axios({
-    url: endpoint("/users/me"),
+    url: endpoint("/posts"),
     method: "POST",
     data,
     ...headers(),
@@ -48,9 +47,8 @@ export const PostPost = async (data: PostPostRequest) => {
 
 export const PatchPost = async (id: string, data: PatchPostRequest) => {
   const response = await axios({
-    url: endpoint("/posts/:id"),
+    url: endpoint(`/posts/${id}`),
     method: "PATCH",
-    params: { id },
     data,
     ...headers(),
   });
@@ -62,9 +60,8 @@ export const PatchMessage = async (
   data: PatchCommentMessageRequest
 ) => {
   const response = await axios({
-    url: endpoint("/posts/:id/message"),
+    url: endpoint(`/posts/${id}/message`),
     method: "PATCH",
-    params: { id },
     data,
     ...headers(),
   });
@@ -73,9 +70,8 @@ export const PatchMessage = async (
 
 export const DeletePost = async (id: string) => {
   const response = await axios({
-    url: endpoint("/posts"),
+    url: endpoint(`/posts/${id}`),
     method: "DELETE",
-    params: { id },
     ...headers(),
   });
   return response;

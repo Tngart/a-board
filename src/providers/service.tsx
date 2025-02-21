@@ -1,5 +1,5 @@
 "use client";
-/* eslint-disable @typescript-eslint/no-explicit-any */
+
 import { LocalStorage } from "./local-storage";
 
 export const endpoint = (path: string) =>

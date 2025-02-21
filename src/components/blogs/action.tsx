@@ -1,4 +1,5 @@
 "use client";
+
 import { Add, Search } from "@mui/icons-material";
 import {
   Button,
@@ -11,24 +12,26 @@ import React, { ChangeEvent, FC, useState } from "react";
 import Community from "./community";
 import { useMediaQuery, useTheme } from "@mui/material";
 import { CommunityEnum } from "../../app/enum";
-import ActionDialog from "../dialog/action-dialog";
 
 interface IProps {
   communitySelected: CommunityEnum[];
   titleFiltered?: string;
+  loading: boolean;
   setCommunitySelected: (filtered: CommunityEnum[]) => void;
   setTitleFiltered: (filtered: string) => void;
+  setOpenCreateDialog: (trigger: boolean) => void;
 }
 
 const Action: FC<IProps> = ({
   communitySelected,
+  loading,
   setCommunitySelected,
   setTitleFiltered,
+  setOpenCreateDialog,
 }) => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
   const [visibleSearch, setVisibleSearch] = useState(false);
-  const [openDialog, setOpenDialog] = useState(false);
 
   const handleChange = (
     event: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>
@@ -53,6 +56,7 @@ const Action: FC<IProps> = ({
       ) : (
         <FormControl variant="standard" fullWidth>
           <OutlinedInput
+            disabled={loading}
             id="search-title"
             placeholder="Search"
             onChange={handleChange}
@@ -67,28 +71,27 @@ const Action: FC<IProps> = ({
       {!(visibleSearch && isMobile) && (
         <div className="flex gap-[10px]">
           <Community
-            variantButton="text"
-            textButton="Community"
             communitySelected={communitySelected}
-            setCommunitySelected={setCommunitySelected}
+            isMultiple
             menuWidth={{ xs: 200, md: 300 }}
             menuPosition="left"
+            variantButton="text"
+            textButton={
+              communitySelected.length ? communitySelected[0] : "Community"
+            }
+            setCommunitySelected={setCommunitySelected}
           />
           <Button
+            loading={loading}
             variant="contained"
             color="success"
             endIcon={<Add />}
-            onClick={() => setOpenDialog(true)}
+            onClick={() => setOpenCreateDialog(true)}
           >
             Create
           </Button>
         </div>
       )}
-      <ActionDialog
-        open={openDialog}
-        setOpen={setOpenDialog}
-        title={"Create Post"}
-      />
     </div>
   );
 };

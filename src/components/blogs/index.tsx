@@ -1,21 +1,52 @@
 "use client";
 
-import React, { FC, useMemo, useState } from "react";
+import React, { FC, useEffect, useMemo, useState } from "react";
 import Action from "../../components/blogs/action";
 import PostList from "../../components/blogs/posts";
 import { CommunityEnum } from "@/app/enum";
 import { PostResponse } from "@/app/types";
 import EmptyState from "../empty";
+import EditDialog from "../dialog/action-dialog";
+import CreateDialog from "../dialog/action-dialog";
+import DeleteDialog from "../dialog/delete-dialog";
 
 interface IProps {
-  postList: PostResponse[];
+  currentEditPost?: PostResponse;
+  currentDeleteId?: string;
+  openCreateDialog: boolean;
+  setCurrentEditPost?: (post?: PostResponse) => void;
+  setCurrentDeleteId?: (id?: string) => void;
+  setOpenCreateDialog: (trigger: boolean) => void;
   isEditable?: boolean;
+  postList: PostResponse[];
+  methods: any;
+  loading: boolean;
+  onCreate: (data: { title: string; description: string }) => void;
+  onEdit?: (data: { title: string; description: string }) => void;
+  onDelete?: () => void;
 }
 
-const ActionAndPostList: FC<IProps> = ({ postList, isEditable }) => {
-  const [communitySelected, setCommunitySelected] = useState<CommunityEnum[]>(
-    []
-  );
+const ActionAndPostList: FC<IProps> = ({
+  currentEditPost,
+  currentDeleteId,
+  openCreateDialog,
+  postList,
+  isEditable,
+  loading,
+  methods,
+  onCreate,
+  onEdit,
+  onDelete,
+  setOpenCreateDialog,
+  setCurrentEditPost,
+  setCurrentDeleteId,
+}) => {
+  const [communitySelectedFilter, setCommunitySelectedFilter] = useState<
+    CommunityEnum[]
+  >([]);
+  const [communitySelectedDialog, setCommunitySelectedDialog] = useState<
+    CommunityEnum[]
+  >([]);
   const [titleFiltered, setTitleFiltered] = useState<string>("");
 
   const filterTwoAlphabet = titleFiltered.length >= 2 ? titleFiltered : "";
@@ -24,23 +55,33 @@ const ActionAndPostList: FC<IProps> = ({ postList, isEditable }) => {
     () =>
       postList.filter((post) => {
         const matchesCommunity =
-          !communitySelected.length ||
-          communitySelected.includes(post.community);
+          !communitySelectedFilter.length ||
+          communitySelectedFilter.includes(post.community);
         const matchesTitle =
           !filterTwoAlphabet ||
           post.title.toLowerCase().includes(filterTwoAlphabet.toLowerCase());
 
         return matchesCommunity && matchesTitle;
       }),
-    [communitySelected, filterTwoAlphabet, postList]
+    [communitySelectedFilter, filterTwoAlphabet, postList]
   );
+
+  useEffect(() => {
+    methods.setValue("community", communitySelectedDialog);
+  }, [communitySelectedDialog, methods, currentEditPost]);
+
+  useEffect(() => {
+    if (currentEditPost)
+      setCommunitySelectedDialog([currentEditPost.community]);
+  }, [currentEditPost]);
 
   return (
     <div className="w-[798px]">
       <Action
-        communitySelected={communitySelected}
-        titleFiltered={filterTwoAlphabet}
-        setCommunitySelected={setCommunitySelected}
+        communitySelected={communitySelectedFilter}
+        loading={loading}
+        setOpenCreateDialog={setOpenCreateDialog}
+        setCommunitySelected={setCommunitySelectedFilter}
         setTitleFiltered={setTitleFiltered}
       />
       {postListFiltered.length ? (
@@ -48,10 +89,36 @@ const ActionAndPostList: FC<IProps> = ({ postList, isEditable }) => {
           posts={postListFiltered}
           titleFiltered={filterTwoAlphabet}
           isEditable={isEditable}
+          setCurrentDeleteId={setCurrentDeleteId}
+          setCurrentEditPost={setCurrentEditPost}
         />
       ) : (
         <EmptyState />
       )}
+      <CreateDialog
+        communitySelected={communitySelectedDialog}
+        open={!!openCreateDialog}
+        onClose={setOpenCreateDialog.bind(null, false)}
+        onSubmit={onCreate}
+        methods={methods}
+        setCommunitySelected={setCommunitySelectedDialog}
+        dialogTitle={"Create Post"}
+      />
+      <EditDialog
+        currentPost={currentEditPost}
+        communitySelected={communitySelectedDialog}
+        open={!!currentEditPost}
+        onClose={setCurrentEditPost?.bind(null, undefined)}
+        onSubmit={onEdit}
+        methods={methods}
+        setCommunitySelected={setCommunitySelectedDialog}
+        dialogTitle={"Edit Post"}
+      />
+      <DeleteDialog
+        id={currentDeleteId}
+        setOpen={setCurrentDeleteId?.bind(null, undefined)}
+        onDelete={onDelete}
+      />
     </div>
   );
 };

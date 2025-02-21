@@ -1,3 +1,4 @@
+"use client";
 import List from "@mui/material/List";
 import Divider from "@mui/material/Divider";
 import { FC, Fragment } from "react";
@@ -8,8 +9,16 @@ interface IProps {
   posts: PostResponse[];
   titleFiltered: string;
   isEditable?: boolean;
+  setCurrentEditPost?: (post?: PostResponse) => void;
+  setCurrentDeleteId?: (id?: string) => void;
 }
-const PostList: FC<IProps> = ({ isEditable, posts, titleFiltered }) => {
+const PostList: FC<IProps> = ({
+  isEditable,
+  posts,
+  titleFiltered,
+  setCurrentDeleteId,
+  setCurrentEditPost,
+}) => {
   return (
     <div className="p-[16px]">
       <List
@@ -21,6 +30,8 @@ const PostList: FC<IProps> = ({ isEditable, posts, titleFiltered }) => {
               post={post}
               titleFiltered={titleFiltered}
               isEditable={isEditable}
+              setCurrentDeleteId={setCurrentDeleteId}
+              setCurrentEditPost={setCurrentEditPost}
             />
             {index < posts.length - 1 && <Divider component="li" />}
           </Fragment>

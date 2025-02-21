@@ -39,5 +39,5 @@ export interface UserInfo {
 }
 
 export interface PatchCommentMessageRequest {
-  message: string;
+  commentMessage: string;
 }

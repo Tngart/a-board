@@ -18,8 +18,8 @@ export const EnumToOptions = (enumObj: Record<string, string>): ListData[] => {
   }));
 };
 
-export const highlightText = (text: string, filter?: string) => {
-  if (!filter) return text;
+export const highlightText = (text?: string, filter?: string) => {
+  if (!filter || !text) return text;
 
   const regex = new RegExp(`(${filter})`, "gi");
   return text.split(regex).map((part, index) =>

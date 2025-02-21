@@ -7,21 +7,18 @@ import { Box } from "@mui/material";
 import { FC } from "react";
 
 interface IProps {
-  id: string;
-  open: boolean;
-  setOpen: (trigger: boolean) => void;
+  id?: string;
+  setOpen?: (trigger?: boolean) => void;
+  onDelete?: () => void;
 }
-const DeleteDialog: FC<IProps> = ({ id, open, setOpen }) => {
+const DeleteDialog: FC<IProps> = ({ id, setOpen, onDelete }) => {
   const handleClose = () => {
-    setOpen(false);
-  };
-  const handleDelete = () => {
-    console.log({ id });
+    setOpen?.(undefined);
   };
 
   return (
     <Dialog
-      open={open}
+      open={!!id}
       onClose={handleClose}
       aria-labelledby="delete-post"
       fullWidth
@@ -58,7 +55,7 @@ const DeleteDialog: FC<IProps> = ({ id, open, setOpen }) => {
           </Button>
           <Button
             fullWidth
-            onClick={handleDelete}
+            onClick={onDelete}
             variant="contained"
             color="error"
             autoFocus

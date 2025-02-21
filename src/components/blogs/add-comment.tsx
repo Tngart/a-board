@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 import Input from "@/components/input";
 import { Box, Button } from "@mui/material";
@@ -7,8 +6,9 @@ import { FC, useState } from "react";
 interface AddCommentProps {
   methods: any;
   onSubmit: (data: { commentMessage: string }) => void;
+  loading: boolean;
 }
-const AddComment: FC<AddCommentProps> = ({ methods, onSubmit }) => {
+const AddComment: FC<AddCommentProps> = ({ methods, loading, onSubmit }) => {
   const [visibleAddComment, setVisibleAddComment] = useState<boolean>(false);
   const { control, handleSubmit, watch } = methods;
 
@@ -33,12 +33,14 @@ const AddComment: FC<AddCommentProps> = ({ methods, onSubmit }) => {
             />
             <div className="flex justify-end gap-[8px] my-[10px]">
               <Button
+                loading={loading}
                 variant="outlined"
                 onClick={setVisibleAddComment.bind(this, false)}
               >
                 Cancel
               </Button>
               <Button
+                loading={loading}
                 variant="contained"
                 color="success"
                 type="submit"

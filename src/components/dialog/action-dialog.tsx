@@ -1,3 +1,5 @@
+"use client";
+
 import Button from "@mui/material/Button";
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
@@ -8,90 +10,112 @@ import { CommunityEnum } from "@/app/enum";
 import Input from "../input";
 import { Box, IconButton } from "@mui/material";
 import { Close } from "@mui/icons-material";
-import { FC, useState } from "react";
+import { FC } from "react";
 import { PostResponse } from "@/app/types";
 import { SetToLabel } from "@/app/helpers";
 
 interface IProps {
+  communitySelected: CommunityEnum[];
   currentPost?: PostResponse;
-  title: string;
+  methods: any;
   open: boolean;
-  setOpen: (trigger: boolean) => void;
+  onClose?: () => void;
+  onSubmit?: (data: { title: string; description: string }) => void;
+  dialogTitle: string;
+  setCommunitySelected: (filtered: CommunityEnum[]) => void;
 }
-const ActionDialog: FC<IProps> = ({ currentPost, open, title, setOpen }) => {
-  const [communitySelected, setCommunitySelected] = useState<CommunityEnum[]>(
-    []
-  );
-  const handleClose = () => {
-    setOpen(false);
+const ActionDialog: FC<IProps> = ({
+  communitySelected,
+  currentPost,
+  dialogTitle,
+  methods,
+  open,
+  onClose,
+  onSubmit,
+  setCommunitySelected,
+}) => {
+  const handleOnSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    methods.handleSubmit(onSubmit)();
   };
 
   return (
     <Dialog
       open={open}
-      onClose={handleClose}
+      onClose={onClose}
       aria-labelledby="action-post"
       fullWidth
     >
-      <IconButton
-        onClick={handleClose}
-        sx={{
-          position: "absolute",
-          top: 2,
-          right: 2,
-          color: "black",
-          fontSize: "12px",
-        }}
-      >
-        <Close />
-      </IconButton>
-      <DialogTitle id="action-post">{title}</DialogTitle>
-      <DialogContent>
-        <Community
-          communitySelected={communitySelected}
-          setCommunitySelected={setCommunitySelected}
-          textButton={
-            SetToLabel(currentPost?.community) || "Choose a community"
-          }
-          variantButton="outlined"
-          menuWidth={{ xs: 310, md: 310 }}
-          menuPosition="right"
-        />
-        <Input placeholder="Title" defaultValue={currentPost?.title} />
-        <Input
-          placeholder="What's on your mind..."
-          multiline
-          defaultValue={currentPost?.description}
-          rows={9}
-        />
-      </DialogContent>
-      <DialogActions>
-        <Box
-          display="flex"
-          flexDirection={{ xs: "column", md: "row" }}
-          justifyContent="flex-end"
-          gap={1}
-          sx={{ width: "100%" }}
+      <form onSubmit={handleOnSubmit}>
+        <IconButton
+          onClick={onClose}
+          sx={{
+            position: "absolute",
+            top: 2,
+            right: 2,
+            color: "black",
+            fontSize: "12px",
+          }}
         >
-          <Button
-            onClick={handleClose}
-            variant="outlined"
-            sx={{ width: { xs: "100%", md: "auto" } }}
+          <Close />
+        </IconButton>
+        <DialogTitle id="action-post">{dialogTitle}</DialogTitle>
+        <DialogContent>
+          <Community
+            communitySelected={communitySelected}
+            variantButton="outlined"
+            menuWidth={{ xs: 310, md: 310 }}
+            menuPosition="right"
+            setCommunitySelected={setCommunitySelected}
+            textButton={
+              communitySelected.length
+                ? SetToLabel(communitySelected[0])
+                : "Choose a community"
+            }
+          />
+          <Input
+            defaultValue={currentPost?.title}
+            control={methods.control}
+            name={"title"}
+            placeholder="Title"
+          />
+          <Input
+            control={methods.control}
+            defaultValue={currentPost?.description}
+            multiline
+            name={"description"}
+            placeholder="What's on your mind..."
+            rows={9}
+          />
+        </DialogContent>
+        <DialogActions>
+          <Box
+            display="flex"
+            flexDirection={{ xs: "column", md: "row" }}
+            justifyContent="flex-end"
+            gap={1}
+            sx={{ width: "100%" }}
           >
-            Cancel
-          </Button>
-          <Button
-            onClick={handleClose}
-            variant="contained"
-            color="success"
-            autoFocus
-            sx={{ width: { xs: "100%", md: "auto" } }}
-            type="submit"
-          >
-            Post
-          </Button>
-        </Box>
-      </DialogActions>
+            <Button
+              onClick={onClose}
+              variant="outlined"
+              sx={{ width: { xs: "100%", md: "auto" } }}
+            >
+              Cancel
+            </Button>
+            <Button
+              disabled={!communitySelected.length}
+              variant="contained"
+              color="success"
+              autoFocus
+              sx={{ width: { xs: "100%", md: "auto" } }}
+              type="submit"
+            >
+              Post
+            </Button>
+          </Box>
+        </DialogActions>
+      </form>
     </Dialog>
   );
 };

@@ -1,6 +1,6 @@
 "use client";
 
-import { FC, useState } from "react";
+import { FC } from "react";
 import { PostResponse } from "@/app/types";
 import ListItem from "@mui/material/ListItem";
 import ListItemText from "@mui/material/ListItemText";
@@ -15,13 +15,13 @@ import Link from "next/link";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
 import { FiEdit3, FiTrash2 } from "react-icons/fi";
-import ActionDialog from "../dialog/action-dialog";
-import DeleteDialog from "../dialog/delete-dialog";
 interface IProps {
   post?: PostResponse;
   titleFiltered?: string;
   isPostDetail?: boolean;
   isEditable?: boolean;
+  setCurrentDeleteId?: (id?: string) => void;
+  setCurrentEditPost?: (post?: PostResponse) => void;
 }
 
 dayjs.extend(relativeTime);
@@ -31,22 +31,21 @@ const PostItem: FC<IProps> = ({
   post,
   titleFiltered,
   isEditable,
+  setCurrentDeleteId,
+  setCurrentEditPost,
 }) => {
   const theme = useTheme();
 
   const { _id, comments, community, description, title, userInfo, updatedAt } =
-    post!;
-
-  const [openEditDialog, setOpenEditDialog] = useState(false);
-  const [openDeleteDialog, setOpenDeleteDialog] = useState(false);
+    post || {};
 
   return (
     <>
       <ListItem sx={{ padding: "20px", display: "block", width: "100%" }}>
         <ListItemAvatar className="flex justify-between">
           <div className="flex items-center gap-2 text-gray-500">
-            <Avatar alt={userInfo._id} src={"/avatar.svg"} />
-            <Typography variant="subtitle1">{userInfo.username}</Typography>
+            <Avatar alt={userInfo?._id} src={"/avatar.svg"} />
+            <Typography variant="subtitle1">{userInfo?.username}</Typography>
             {isPostDetail && (
               <Typography variant="subtitle2">
                 {dayjs(updatedAt).fromNow()}
@@ -55,7 +54,7 @@ const PostItem: FC<IProps> = ({
           </div>
           <div hidden={!isEditable}>
             <IconButton
-              onClick={() => setOpenEditDialog(true)}
+              onClick={() => setCurrentEditPost?.(post)}
               color="primary"
               sx={{
                 color: (theme) => theme.palette.primary.main,
@@ -65,7 +64,7 @@ const PostItem: FC<IProps> = ({
               <FiEdit3 color={theme.palette.primary.main} />
             </IconButton>
             <IconButton
-              onClick={() => setOpenDeleteDialog(true)}
+              onClick={() => setCurrentDeleteId?.(_id)}
               color="primary"
               sx={{
                 color: (theme) => theme.palette.primary.main,
@@ -135,17 +134,6 @@ const PostItem: FC<IProps> = ({
           </Link>
         )}
       </ListItem>
-      <ActionDialog
-        open={openEditDialog}
-        setOpen={setOpenEditDialog}
-        title={"Edit Post"}
-        currentPost={post}
-      />
-      <DeleteDialog
-        id={_id}
-        open={openDeleteDialog}
-        setOpen={setOpenDeleteDialog}
-      />
     </>
   );
 };
